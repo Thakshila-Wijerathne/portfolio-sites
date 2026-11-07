@@ -1,0 +1,1916 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex"><!-- Keeps the site out of search results. Remove at launch. -->
+<title>Ear &amp; Ember Bakehouse | Good Bread, Shared</title>
+<meta name="description" content="The loaf someone always brings home. The short eats that vanish before the tea is poured. The cake nobody admits to going back for. Baking for the table since 2016.">
+<meta name="theme-color" content="#0F3822">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ear &amp; Ember Bakehouse">
+<meta property="og:description" content="Good bread, shared. Baking for the table since 2016.">
+<meta property="og:image" content="assets/web/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="assets/web/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Bakery","name":"Ear & Ember Bakehouse","telephone":"+94700000000","email":"hello@earandember.example","slogan":"Warm from the oven","foundingDate":"2016","address":{"@type":"PostalAddress","streetAddress":"12 Old Mill Road","addressLocality":"Millbrook","addressCountry":"LK"}}
+</script>
+
+<script>
+/* ==========================================================================
+   SITE CONFIG: everything the owner may want to change lives in this block.
+
+   PORTFOLIO SAMPLE: Ear & Ember Bakehouse is a fictional business. The name,
+   phone, email, addresses and logo are made up, and the photos are CC0 stock
+   (sources in assets/web/CREDITS.md).
+
+   THIS IS A DEMO: commerce.demo is true, so order, WhatsApp and call buttons
+   only show a notice. The cart and checkout below are built and waiting.
+
+   TURNING ON WHATSAPP ORDERING
+     1. commerce.demo     true -> false
+
+   TURNING ON E-COMMERCE (see BACKEND.md for the API the backend must provide)
+     1. commerce.demo     true -> false
+     2. commerce.mode     "whatsapp" -> "api"
+     3. commerce.api.baseUrl         -> your backend, e.g. "/api"
+     4. catalog.pricesConfirmed      -> true once real prices are in
+   The checkout form, live catalog and order submission then switch on, and
+   the placeholder banner in the cart disappears. No markup changes needed.
+   ========================================================================== */
+window.SITE_CONFIG = {
+  business: {
+    name: "Ear & Ember Bakehouse",
+    hotlineDisplay: "0700 000 000",
+    hotlineTel: "+94700000000",
+    whatsapp: "94700000000",               // country code, no "+"
+    email: "hello@earandember.example",
+    instagram: "",                         // handle without "@"; empty hides the link
+    tiktok: "",
+  },
+
+  commerce: {
+    demo: true,                            // true = ordering and contact buttons show demoMessage and do nothing
+    demoMessage: "This functionality is not available in demo site.",
+    mode: "whatsapp",                      // "whatsapp" = cart sends a message | "api" = real checkout
+    api: {
+      baseUrl: "",                         // required when mode is "api"
+      timeoutMs: 12000,
+    },
+    delivery: { enabled: true },           // api mode: offer doorstep delivery as well as pickup
+    fallbackToWhatsApp: true,              // api mode: offer WhatsApp if the backend can't take an order
+    draftNotice: "E-Commerce Checkout & Doorstep Delivery Integration (Custom Module Placeholder - Full System Ready upon Launch)",
+  },
+
+  showrooms: ["Old Mill Road", "Harbour Lane", "Station Square", "Market Street", "Lakeside", "Clock Tower"],
+  showroomAddresses: {
+    "Old Mill Road": "12 Old Mill Road, Millbrook",
+  },
+
+  catalog: {
+    // false shows a "preview prices" note and marks WhatsApp totals as estimates.
+    pricesConfirmed: false,
+
+    // The menu views a grain can open.
+    categories: [
+      { id: "breads", label: "The Loaf", script: "Oven-fresh daily...",
+        line: "One end of it never makes it home." },
+      { id: "pastries", label: "Short Eats", script: "Just one. Sure.",
+        line: "Everyone says just one. We've stopped believing them." },
+      { id: "sweets", label: "Something Sweet", script: "From the mix... to the melt.",
+        line: "Warm in the middle, gone in about a minute." },
+      { id: "cakes", label: "Big Day Cakes", script: "Make a wish.",
+        line: "Nobody remembers the speeches. They remember the cake." },
+      { id: "crowd", label: "Feed a Crowd", script: "It takes a village.",
+        line: "It takes a village to feed a wedding. Lucky for you, we bake like one." },
+    ],
+
+    // The grains that open: one photo, one menu item, one grain. The rest of the ear stays plain gold.
+    // New photo from the bakery? Add a line here and another grain comes alive (up to 17).
+    grains: [
+      { label: "The Loaf", category: "breads", image: "assets/web/grain-loaf.webp",
+        story: "There's a moment right after the first slice when nobody in the kitchen is talking. That's the one we bake for." },
+      { label: "Lava Cake", category: "sweets", image: "assets/web/grain-lava.webp",
+        story: "Warm in the middle, gone in about a minute." },
+      { label: "Celebration Cakes", category: "cakes", image: "assets/web/grain-red.webp",
+        story: "Glossy on top, crunchy round the edge, and gone before anyone has found a knife." },
+      { label: "Birthday Cakes", category: "cakes", image: "assets/web/grain-candles.webp",
+        story: "Years from now nobody will remember the speeches. They'll remember who cut the cake, and how big their slice was." },
+      { label: "Custom Cakes", category: "cakes", image: "assets/web/grain-custom.webp",
+        story: "Tell us who it's for and what they love. We'll take it from there." },
+      { label: "Feed a Crowd", category: "crowd", image: "assets/web/grain-bags.webp",
+        story: "It takes a village to feed a wedding. Lucky for you, we bake like one." },
+    ],
+
+    // A product with no image shows the placeholder until the bakery sends a sharp photo.
+    // Used directly in "whatsapp" mode. In "api" mode GET /products replaces this
+    // list, and it stays as the fallback if that request fails. Prices: whole LKR.
+    products: [
+      { id: "sliced-loaf-rolls", name: "Artisanal Sliced Loaf & Rolls", price: 450, categories: ["breads"],
+        description: "Soft slices, fresh rolls, and one end that never makes it home intact.",
+        image: "assets/web/card-loaf.webp", alt: "Crusty loaves cooling on wooden bakery shelves" },
+      { id: "hotdog-pizza-rolls", name: "Hot Dog & Pizza Rolls Special", price: 350, categories: ["breads", "pastries"],
+        description: "Sesame rolls, a proper sausage, and pizza rolls piled with more than they need.",
+        image: "", alt: "" },
+      { id: "puffs-sausage-rolls", name: "Signature Stuffed Puffs & Sausage Rolls", price: 280, categories: ["pastries"],
+        description: "Flaky enough to leave evidence down your shirt. Worth it.",
+        image: "", alt: "" },
+      { id: "lava-cake", name: "Lava Cake", price: 200, categories: ["sweets"],
+        description: "Rich chocolate cake with a warm, molten center.",
+        image: "assets/web/card-dessert.webp", alt: "A chocolate dessert with warm sauce on a plate" },
+      { id: "dessert-cups", name: "Premium Chocolate & Tiramisu Dessert Cups", price: 350, categories: ["sweets"],
+        description: "Sugar, spice and everything nice, in a cup, so nobody has to share.",
+        image: "", alt: "" },
+    ],
+
+    // Quote-only items: no price and no cart, always sent to WhatsApp as an enquiry.
+    enquiries: [
+      { id: "custom-cake", name: "Custom Cake & Event Orders", tag: "Draft E-Com Module", categories: ["cakes"],
+        description: "Tell us who it's for, how old they're admitting to, and what they love. We'll take it from there.",
+        action: "Tell us about the cake",
+        message: "Hi Ear & Ember, I would like to ask about a custom cake. It's for..." },
+      { id: "catering", name: "Outdoor Catering", categories: ["crowd"],
+        description: "Weddings, engagements, graduations, office meetings and family get-togethers. Tell us the day and the headcount.",
+        action: "Plan the spread",
+        message: "Hi Ear & Ember, I would like to ask about outdoor catering for an event on..." },
+      { id: "snack-boxes", name: "Snack Boxes", categories: ["crowd"],
+        description: "Sandwiches, rolls, pastries and something sweet, boxed per person. The easiest way to make a meeting worth attending.",
+        action: "Ask about boxes",
+        message: "Hi Ear & Ember, I would like to ask about snack boxes for..." },
+    ],
+  },
+};
+</script>
+
+<style>
+:root{
+  /* Baked palette: forest brand, and everything an oven does to dough. */
+  --forest:#0F3822; --forest-2:#16492D; --forest-deep:#07200F; --moss:#3E6B2F; --lime:#76C82B;
+  --gold:#D4AF37; --amber:#E6B800; --foil:#B08A1E;
+  --butter:#F3D98B; --crumb:#FBF3E0; --cream:#FDFBF7; --crust:#C98428; --ember:#C4552D; --cocoa:#3A2013;
+  --ink:#231509; --muted:#5F5140; --on-dark:#F7F1E1; --on-dark-2:rgba(247,241,225,.8);
+  --line:rgba(58,32,19,.14); --line-dark:rgba(212,175,55,.34);
+  --display:"Fraunces",Georgia,serif; --sans:"Outfit",system-ui,-apple-system,"Segoe UI",sans-serif; --script:"Alex Brush","Segoe Script",cursive;
+  --ease:cubic-bezier(.2,.7,.2,1); --spring:cubic-bezier(.3,1.5,.5,1);
+  --head-h:72px; --curve:clamp(60px,12vw,150px); --curve2:clamp(40px,6vw,84px);
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .2 0 0 0 0 .12 0 0 0 0 .05 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:calc(var(--head-h) + 12px);background:var(--forest-deep);overflow-x:clip}
+html.lock,html.shelf-open{overflow:hidden}
+body{margin:0;background:var(--cream);color:var(--ink);font:400 1rem/1.6 var(--sans);overflow-x:clip;-webkit-font-smoothing:antialiased}
+/* Paper tooth over the whole page, so no colour ever sits flat. */
+body::after{content:"";position:fixed;inset:0;z-index:60;pointer-events:none;background:var(--grain);opacity:.07}
+::selection{background:var(--butter);color:var(--cocoa)}
+img{display:block;max-width:100%;-webkit-user-drag:none;user-select:none}
+a{-webkit-user-drag:none}
+a{color:inherit}
+h1,h2,h3,p,ul{margin:0}
+ul{padding:0;list-style:none}
+button,select,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0}
+[hidden]{display:none!important}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:6px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.wrap{width:min(1200px,100%);margin-inline:auto;padding-inline:16px}
+@media (min-width:700px){.wrap{padding-inline:28px}}
+.ico{width:1.25em;height:1.25em;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.ico.solid{fill:currentColor;stroke:none}
+.script{font-family:var(--script);font-size:1.8rem;line-height:1.15;font-weight:400}
+
+/* Buttons: foil that catches the light as you pass. */
+.btn{position:relative;overflow:hidden;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;gap:.55em;min-height:48px;padding:.7em 1.4em;border-radius:999px;font-weight:600;font-size:.98rem;line-height:1.2;text-decoration:none;text-align:center;border:1px solid transparent;transition:transform .25s var(--ease),box-shadow .25s var(--ease),background-position .7s var(--ease),background-color .25s,border-color .25s}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:translateY(0) scale(.985)}
+.btn[disabled]{opacity:.6;cursor:not-allowed;transform:none}
+.btn-gold{background:linear-gradient(115deg,#BE9627 0%,#E9C650 26%,#FFF0B0 44%,#E2BC42 58%,#BE9627 100%);background-size:240% 100%;background-position:90% 0;color:#1D1703;box-shadow:0 10px 24px -12px rgba(190,150,39,.9)}
+.btn-gold:hover{background-position:5% 0;box-shadow:0 16px 30px -12px rgba(230,184,0,.95)}
+.btn-glass{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.34);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.btn-glass:hover{background:rgba(255,255,255,.2);box-shadow:0 14px 28px -14px rgba(0,0,0,.7)}
+.btn-forest{background:linear-gradient(115deg,var(--forest) 0%,var(--moss) 50%,var(--forest) 100%);background-size:240% 100%;background-position:0 0;color:#fff}
+.btn-forest:hover{background-position:100% 0;box-shadow:0 14px 26px -14px rgba(7,32,15,.8)}
+.btn-wa{background:linear-gradient(115deg,#0F7A41,#17A35A);color:#fff}
+.btn-wa:hover{box-shadow:0 14px 26px -14px rgba(18,140,75,.9)}
+.btn-line{border-color:var(--line);color:var(--forest);background:transparent}
+.btn-line:hover{border-color:var(--forest)}
+.btn-block{width:100%}
+.ripple{position:absolute;z-index:-1;border-radius:50%;background:rgba(255,255,255,.45);transform:scale(0);animation:ripple .6s ease-out forwards;pointer-events:none}
+@keyframes ripple{to{transform:scale(1);opacity:0}}
+.pulse{animation:goldPulse 3s ease-in-out infinite}
+@keyframes goldPulse{0%,100%{box-shadow:0 0 0 0 rgba(230,184,0,.5),0 10px 24px -12px rgba(190,150,39,.9)}50%{box-shadow:0 0 0 13px rgba(230,184,0,0),0 10px 34px -6px rgba(230,184,0,.8)}}
+
+/* Scroll reveals */
+.js .r-right{opacity:0;transform:translateX(40px);transition:opacity .75s var(--ease) var(--d,0ms),transform .75s var(--ease) var(--d,0ms)}
+.js .r-up{opacity:0;transform:perspective(800px) translateY(30px) rotateX(-5deg);transform-origin:50% 100%;transition:opacity .75s var(--ease) var(--d,0ms),transform .75s var(--ease) var(--d,0ms)}
+.js .r-right.in,.js .r-up.in{opacity:1;transform:none}
+
+/* Header */
+.site-head{position:sticky;top:0;z-index:40;background:linear-gradient(100deg,rgba(7,32,15,.96),rgba(22,73,45,.93) 55%,rgba(62,70,28,.93));-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:var(--on-dark)}
+/* The hairline is also a quiet scroll meter. */
+.site-head::after{content:"";position:absolute;inset:auto 0 0;height:2px;background:linear-gradient(90deg,var(--lime),var(--gold) 60%,var(--ember));transform:scaleX(var(--read,0));transform-origin:left}
+.head-row{display:flex;align-items:center;gap:12px;min-height:var(--head-h)}
+.brand{display:block;flex:none;border-radius:50%;transition:transform .5s var(--spring),opacity .4s}
+/* The big logo is on show in the hero, so the small one waits until that scrolls away. */
+.brand.tuck{opacity:0;transform:scale(.6);pointer-events:none}
+.brand:hover{transform:rotate(-8deg) scale(1.06)}
+.brand img{width:58px;height:58px;border-radius:50%;box-shadow:0 0 0 1.5px var(--gold),0 6px 16px -6px rgba(0,0,0,.7)}
+.nav{display:none}
+.nav a{position:relative;padding:.5em .1em;text-decoration:none;font-weight:500;color:var(--on-dark-2);transition:color .2s}
+.nav a::after{content:"";position:absolute;inset:auto 0 0;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.nav a:hover,.nav a.active{color:#fff}
+.nav a:hover::after,.nav a.active::after{transform:scaleX(1)}
+.head-actions{margin-left:auto;display:flex;align-items:center;gap:8px}
+.order-btn{min-height:44px;padding:.5em 1em;font-size:.9rem;white-space:nowrap}
+.count{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 6px;border-radius:999px;background:var(--forest);color:#fff;font-size:.76rem;font-weight:700}
+.count.bump{animation:bump .4s var(--ease)}
+@keyframes bump{40%{transform:scale(1.4)}}
+.burger{display:grid;place-items:center;width:44px;height:44px;border-radius:12px;border:1px solid var(--line-dark);color:var(--on-dark)}
+.mobile-nav{border-top:1px solid var(--line-dark);padding:6px 0 14px}
+.mobile-nav a{display:block;padding:.7em 0;font-size:1.05rem;font-weight:500;text-decoration:none;border-bottom:1px solid rgba(244,241,230,.1)}
+@media (max-width:359px){.order-btn .lbl-long{display:none}}
+@media (min-width:1000px){
+  :root{--head-h:80px}
+  .nav{display:flex;gap:26px;margin-left:30px}
+  .burger,.mobile-nav{display:none!important}
+  .brand img{width:64px;height:64px}
+}
+
+/* ---------- The hero: a wheat ear on a lit wall ---------- */
+.hero{position:relative;isolation:isolate;overflow:hidden;color:var(--on-dark);padding:22px 0 calc(var(--curve2) + 26px);
+  background:
+    radial-gradient(100% 30% at 50% 64%,#FBEFCF 0%,#F2D9A4 34%,rgba(190,140,70,.72) 62%,rgba(90,80,40,0) 92%),
+    linear-gradient(180deg,#0B2C19 0%,#0F3822 36%,#23461F 54%,#2E3F1E 76%,#0F3822 90%,#0B2C19 100%)}
+/* A warm pool of light that follows the pointer. */
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:var(--glow,0);transition:opacity .6s;background:radial-gradient(340px 340px at var(--mx,50%) var(--my,50%),rgba(255,226,160,.2),transparent 70%)}
+.hero-grid{display:grid;gap:12px}
+.hero-words{min-width:0}
+.identity{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+.identity img{width:clamp(78px,22vw,112px);height:auto;aspect-ratio:1;border-radius:50%;box-shadow:0 0 0 1.5px var(--gold),0 14px 30px -12px rgba(0,0,0,.85)}
+.identity .script{display:block;color:#CFEEA9;font-size:clamp(1.6rem,6vw,2.1rem)}
+.identity small{display:block;margin-top:3px;font:500 .72rem/1 var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--butter)}
+.hero h1{font:600 clamp(2.55rem,12.2vw,5.7rem)/1 var(--display);letter-spacing:-.022em;color:#fff}
+.tagline{margin-top:12px;font:500 clamp(1.45rem,5.4vw,2.3rem)/1.15 var(--display);color:#fff}
+.tagline em{font-style:italic;background:linear-gradient(100deg,var(--butter),var(--amber) 55%,#F08A3C);-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:.08em}
+.what{margin-top:12px;max-width:32em;font-size:clamp(1.05rem,2.7vw,1.2rem);line-height:1.5;color:rgba(255,255,255,.95)}
+.story{display:grid;margin-top:12px;max-width:33em;font-size:1rem;line-height:1.5}
+.story p{grid-area:1/1;opacity:0;transform:translateY(8px);transition:opacity .55s var(--ease),transform .55s var(--ease);color:rgba(255,255,255,.76)}
+.story p.on{opacity:1;transform:none}
+.story b{display:block;margin-bottom:2px;font:600 .72rem/1.5 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--butter)}
+.hello{margin-top:18px;font-size:1.5rem;color:#CFEEA9}
+.hero-cta{display:flex;flex-direction:column;gap:12px}
+.hero-cta.lg-only,.hello.lg-only{display:none}
+.rise{animation:rise .95s var(--ease) both;animation-delay:var(--d,0ms)}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+.ear-col{position:relative;z-index:1}
+.stage{position:relative;width:min(100%,520px);margin-inline:auto;aspect-ratio:1/1.3}
+.ear{position:absolute;inset:0;transform-origin:50% 100%;animation:breeze 8s ease-in-out infinite}
+@keyframes breeze{0%,100%{transform:rotate(-.7deg)}50%{transform:rotate(.7deg)}}
+.stem{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.stem .spine{fill:none;stroke:url(#stemGrad);stroke-width:.5;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1.5s var(--ease) forwards}
+.stem .blade{fill:url(#bladeGrad);stroke:rgba(255,240,190,.55);stroke-width:.8;vector-effect:non-scaling-stroke;transform-origin:49% 94%;animation:bladeIn 1.3s var(--ease) .35s both}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes bladeIn{from{opacity:0;transform:rotate(-26deg) scale(.5)}to{opacity:1;transform:none}}
+
+/* A grain: hinged at the stem so it can bend, flutter and part. */
+.g{position:absolute;left:calc(var(--x)*1%);top:calc(var(--y)*1%);width:calc(var(--w)*1%);aspect-ratio:1/2.6;translate:-50% -100%;transform-origin:50% 100%;transform:rotate(calc((var(--a) + var(--bend,0))*1deg));z-index:var(--z)}
+.g.hot{z-index:60}
+/* Only the grain's own shape catches the pointer, never its rectangular box. */
+.g,.g-in,.g-grow,.g-shadow{pointer-events:none}
+.g-face{pointer-events:auto}
+a.g-face{cursor:pointer}
+.g-in,.g-grow{position:absolute;inset:0;transform-origin:50% 100%}
+.g-in{animation:flutter 4.8s ease-in-out infinite;animation-delay:calc(var(--r)*-.42s)}
+@keyframes flutter{0%,100%{transform:rotate(-1.7deg)}50%{transform:rotate(1.7deg)}}
+.g-grow{animation:grow 1.15s var(--spring) both;animation-delay:calc(var(--i)*62ms + 260ms)}
+@keyframes grow{from{opacity:0;transform:scale(.2)}to{opacity:1;transform:none}}
+.g-shadow{position:absolute;inset:0;clip-path:url(#grain);background:rgba(66,38,10,.2);transform:translate(var(--sx,5px),var(--sy,7px));transition:transform .5s var(--ease),background-color .25s}
+.g-awn{position:absolute;left:50%;bottom:97%;width:16%;height:var(--awn,70%);overflow:visible;pointer-events:none;transform-origin:0 100%;animation:awnIn 1.2s var(--ease) both;animation-delay:calc(var(--i)*62ms + 750ms)}
+@keyframes awnIn{from{opacity:0;transform:scaleY(.1)}to{opacity:1;transform:none}}
+.g-awn path{fill:none;stroke:url(#awnGrad);stroke-width:1.1;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.g-face{position:absolute;inset:0;display:block;clip-path:url(#grain);overflow:hidden;background:repeating-linear-gradient(82deg,rgba(255,244,205,.09) 0 1px,transparent 1px 4px),linear-gradient(98deg,#FBE9B4 0%,#E4B553 34%,#B57F26 66%,#7C4C13 100%);filter:brightness(var(--tone,1));transition:transform .55s var(--spring),filter .6s}
+.g-face:focus-visible{outline:0}
+.g-face img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--pos,50% 50%);opacity:0;transform:scale(1.2);transition:opacity .7s var(--ease),transform .9s var(--ease)}
+/* Rounded form: lit on one flank, in shade on the other. */
+.g-face::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(98deg,rgba(255,240,190,.32) 0%,transparent 36%,rgba(70,36,8,.06) 62%,rgba(58,28,6,.42) 100%);opacity:0;transition:opacity .7s}
+/* A band of light climbs the ear every few seconds. */
+.g-face::after{content:"";position:absolute;inset:0;z-index:3;background:linear-gradient(172deg,transparent 40%,rgba(255,251,226,.8) 50%,transparent 60%);transform:translateY(130%);animation:sheen 8s ease-in-out infinite;animation-delay:calc(var(--r)*.13s + 2.4s);pointer-events:none}
+@keyframes sheen{0%{transform:translateY(130%)}22%,100%{transform:translateY(-130%)}}
+.g-rim{position:absolute;inset:0;z-index:2;width:100%;height:100%;pointer-events:none}
+.g-rim path{fill:none;stroke:rgba(255,243,205,.72);stroke-width:.8;vector-effect:non-scaling-stroke;transition:opacity .5s}
+.g-rim .crease{stroke:rgba(90,52,12,.5)}
+.g.bloom .g-face img,.g.hot .g-face img{opacity:1;transform:none}
+.g.bloom .g-face::before,.g.hot .g-face::before{opacity:1}
+.g.bloom .g-face,.g.hot .g-face{filter:none}
+.g.bloom .g-rim path,.g.hot .g-rim path{stroke:rgba(255,226,140,.95)}
+.g.bloom .g-rim .crease,.g.hot .g-rim .crease{opacity:0}
+.g:has(.g-face:focus-visible){z-index:60}
+.g:has(.g-face:focus-visible) .g-shadow{background:var(--amber);transform:translate(2px,2px)}
+.ear-hint{position:absolute;z-index:1;left:0;bottom:6%;width:47%;text-align:right;transform:rotate(-4deg);color:#472A10;font-size:clamp(1.05rem,3.9vw,1.3rem);line-height:1.1;text-wrap:balance;pointer-events:none}
+.touch-zone{display:none}
+.lean{position:absolute;inset:0;--shift:0;--lean:0;transform:translateX(calc(var(--shift)*100%)) rotate(calc(var(--lean)*1deg));transform-origin:50% 100%}
+.finger-peek{display:none}
+/* Small screens: the wheat grows diagonally out of the cream section below,
+   with the light filling the hero behind it instead of a glow floating in the middle. */
+@media (max-width:979px){
+  .hero{--band:min(128vw,770px);padding:22px 0 0;background:
+    radial-gradient(70% calc(var(--band)*.5) at 62% calc(100% - var(--band)*.46),rgba(255,247,222,.85),rgba(255,247,222,0)),
+    linear-gradient(0deg,#F8E9C4 0,#EBCF98 calc(var(--band)*.42),#A98845 calc(var(--band)*.82),#4F5A2A calc(var(--band)*1.02),#143A20 calc(var(--band)*1.2),#0F3822 calc(var(--band)*1.4),#0B2C19 100%)}
+  .hero-grid{row-gap:0}
+  .hero-words{display:contents}
+  .story{order:2;margin:18px 0 8px;min-height:6.2em;color:#fff}
+  .story p{color:rgba(255,255,255,.88)}
+  .ear-col{order:3;margin-inline:-16px;min-width:0}
+  .stage{width:min(100vw,600px);max-width:none;margin-inline:auto;aspect-ratio:1/1.24}
+  .lean{--shift:-.17;--lean:25}
+  .ear-hint{position:absolute;left:16px;bottom:calc(var(--curve2) + 14px);width:31%;text-align:left;transform:none;font-size:clamp(1.15rem,4.4vw,1.45rem);line-height:1.12;color:#3A2410}
+  /* A soft grain drifting in from just out of frame; the touched grain's photo fades in and out on it. */
+  .finger-peek{--w:min(50vw,290px);display:block;position:absolute;left:calc(var(--w)*-.3);top:12px;width:var(--w);aspect-ratio:1/1.18;pointer-events:none;filter:drop-shadow(0 10px 14px rgba(58,32,10,.22))}
+  .finger-peek::before{content:"";position:absolute;inset:0;clip-path:url(#grainR);background:linear-gradient(150deg,rgba(243,217,139,.55),rgba(201,160,70,.5) 55%,rgba(243,217,139,.7))}
+  .peek-cut{position:absolute;inset:1.5px;clip-path:url(#grainR);background:linear-gradient(160deg,rgba(255,247,222,.22),rgba(233,205,146,.42))}
+  /* The photo sits in the part of the grain that's actually on screen. */
+  .peek-cut img{position:absolute;top:0;left:26%;width:74%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s ease}
+  .peek-cut img.on{opacity:1}
+}
+@media (min-width:700px) and (max-width:979px){.ear-col{margin-inline:-28px}}
+@media (prefers-reduced-motion:reduce){.finger-peek{display:none!important}}
+/* The finger zone hugs the ear and is never drawn; everywhere else the page scrolls. */
+@media (hover:none) and (prefers-reduced-motion:no-preference){
+  .touch-zone{display:block;position:absolute;left:23%;right:22%;top:6%;bottom:22%;border-radius:50%;touch-action:none;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+  .ear{pointer-events:none}
+  .g-face{touch-action:none;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+}
+.ear-foot{display:flex;flex-direction:column;gap:12px;margin-top:6px}
+@media (min-width:560px){.ear-foot{flex-direction:row;flex-wrap:wrap}}
+@media (max-width:979px){.ear-foot{order:1;margin-top:20px}}
+@media (min-width:980px){
+  .hero{min-height:calc(100svh - var(--head-h));display:flex;align-items:center;padding:24px 0 calc(var(--curve2) + 8px);
+    background:
+      radial-gradient(52% 92% at 74% 54%,#FBEFCF 0%,#F2D9A4 30%,rgba(190,140,70,.72) 60%,rgba(90,80,40,0) 92%),
+      linear-gradient(100deg,#0B2C19 0%,#0F3822 36%,#23461F 58%,#2E3F1E 78%,#14361F 100%)}
+  .hero-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:center}
+  .hero-cta.lg-only{display:flex;flex-direction:row;flex-wrap:wrap;margin-top:22px}
+  .hello.lg-only{display:block}
+  .ear-foot{display:none}
+  .stage{height:calc(100svh - var(--head-h) - 40px);max-height:820px;min-height:520px;max-width:100%;width:auto}
+}
+
+/* ---------- Moments: the page goes from sunrise to night as you scroll ---------- */
+.day{position:relative;z-index:2;margin-top:calc(var(--curve2)*-1);color:var(--ink)}
+.day-head{border-radius:var(--curve2) 0 0 0;background:linear-gradient(180deg,#FDF5DF,#FBF1D8);padding:clamp(56px,8vw,96px) 0 8px}
+.kicker{display:flex;align-items:center;gap:10px;font-size:.78rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--forest)}
+.kicker::before{content:"";width:28px;height:2px;background:linear-gradient(90deg,var(--lime),var(--gold))}
+.day-head h2,.about h2,.find h2{margin-top:10px;font:600 clamp(2.05rem,6.4vw,3.5rem)/1.08 var(--display);letter-spacing:-.015em;color:var(--forest)}
+.moment{position:relative}
+.m1{background:linear-gradient(180deg,#FBF1D8,#F8E4B4)}
+.m2{background:linear-gradient(180deg,#F8E4B4,#F0C685)}
+.m3{background:linear-gradient(180deg,#F0C685,#D98F55)}
+.m4{background:linear-gradient(180deg,#D98F55 0%,#7A3C1C 26%,#3A2013 58%,#23120A 100%);color:var(--on-dark)}
+.moment-in{display:grid;gap:18px;padding-block:34px;padding-left:44px}
+.m4 .moment-in{padding-top:150px;padding-bottom:84px}
+.m-pic{position:relative;width:min(70%,300px);aspect-ratio:1/1.18}
+.m-pic{display:block;pointer-events:none}
+.m-pic .sh{position:absolute;inset:0;clip-path:url(#grainR);background:rgba(44,24,8,.3);transform:translate(9px,11px);transition:transform .45s var(--spring)}
+/* The clip also limits clicks to the grain's shape, so the empty corners stay dead. */
+.m-pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;clip-path:url(#grainR);pointer-events:auto;cursor:pointer;transition:transform .45s var(--spring)}
+.m-pic:has(img:hover) img,.m-pic:focus-visible img{transform:translate(-3px,-6px) scale(1.04)}
+.m-pic:has(img:hover) .sh,.m-pic:focus-visible .sh{transform:translate(15px,19px) scale(1.04)}
+.m-pic:active img{transform:scale(.985)}
+.m-copy h3{font:600 clamp(1.7rem,4.8vw,2.6rem)/1.1 var(--display);letter-spacing:-.01em;color:var(--forest)}
+.m4 .m-copy h3{color:#fff}
+.m-copy p.body{margin-top:8px;font-size:1.1rem;max-width:30em;color:#3D2A18}
+.m4 .m-copy p.body{color:var(--on-dark-2)}
+.m-link{display:inline-block;margin-top:10px;padding:.55em 0;font-weight:600;color:var(--forest);text-decoration:none;background:linear-gradient(currentColor,currentColor) 0 88%/100% 1.5px no-repeat;transition:background-size .35s var(--ease)}
+.m-link:hover{background-size:32% 1.5px}
+.m4 .m-link{color:var(--butter)}
+.sunpath{position:absolute;z-index:3;top:0;bottom:0;left:6px;width:30px;pointer-events:none}
+.sunpath svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.sunpath path{fill:none;vector-effect:non-scaling-stroke;stroke-linecap:round}
+.sun-track{stroke:rgba(122,63,16,.28);stroke-width:1.4}
+.sun-lit{stroke:var(--gold);stroke-width:2.2}
+.sunpath svg.lit{clip-path:inset(0 -40px calc((1 - var(--p,0))*100%) -40px)}
+.sun{position:absolute;width:20px;height:20px;margin:-10px 0 0 -10px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#FFF4C2,var(--amber) 60%,#E08A1E);box-shadow:0 0 0 5px rgba(230,184,0,.2),0 0 26px 7px rgba(230,184,0,.5);transition:background .8s,box-shadow .8s}
+.sun.moon{background:radial-gradient(circle at 35% 35%,#FFFDF0,#E7E2CE 70%);box-shadow:0 0 0 5px rgba(240,236,214,.14),0 0 24px 6px rgba(240,236,214,.32)}
+@media (min-width:860px){
+  .moment-in{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:120px;align-items:center;padding-left:28px;padding-block:44px}
+  .moment:nth-of-type(even) .m-pic{order:2}
+  .moment:nth-of-type(odd) .m-pic{justify-self:end}
+  .moment:nth-of-type(even) .m-copy{justify-self:end;max-width:30em}
+  .moment:nth-of-type(even) .m-pic img,.moment:nth-of-type(even) .m-pic .sh{clip-path:url(#grainL)}
+  .m-pic{width:min(82%,340px)}
+  .sunpath{left:calc(50% - 45px);width:90px}
+}
+
+/* ---------- Find us: useful, and kept short ---------- */
+.find{position:relative;color:var(--on-dark);padding:clamp(90px,12vw,150px) 0 calc(var(--curve) + 64px);background:
+  radial-gradient(60% 50% at 88% 62%,rgba(118,200,43,.15),transparent 70%),
+  radial-gradient(60% 50% at 0% 100%,rgba(212,175,55,.13),transparent 70%),
+  linear-gradient(180deg,#23120A 0%,#172016 26%,var(--forest) 62%,#0B2C19 100%)}
+.find .kicker{color:var(--amber)}
+.find h2{color:#fff}
+.find-sub{margin-top:10px;max-width:34em;font-size:1.1rem;color:var(--on-dark-2)}
+.places{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:24px}
+.place{position:relative;display:flex;align-items:center;gap:10px;min-height:60px;padding:10px 14px;text-align:left;font:500 1.05rem/1.2 var(--sans);overflow-wrap:anywhere;color:var(--on-dark);border:1px solid rgba(247,241,225,.28);border-radius:6px 22px 6px 22px;background:linear-gradient(135deg,rgba(255,255,255,.13),rgba(255,255,255,.04));box-shadow:0 8px 18px -14px rgba(0,0,0,.9);transition:transform .3s var(--spring),border-color .25s,box-shadow .3s}
+.place .ico{width:21px;height:21px;color:var(--butter);transition:transform .35s var(--spring)}
+.place:hover{transform:translateY(-3px);border-color:var(--gold);box-shadow:0 16px 24px -14px rgba(0,0,0,.9)}
+.place:hover .ico{transform:translateY(-2px) scale(1.12)}
+.place[aria-pressed="true"]{color:#231509;font-weight:600;border-color:transparent;background:linear-gradient(115deg,#E9C650,#FFF0B0 50%,#E2BC42)}
+.place[aria-pressed="true"] .ico{color:var(--forest)}
+.find-pick{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 22px;margin-top:14px;min-height:82px;padding:16px 18px;border:1px dashed rgba(212,175,55,.5);border-radius:6px 22px 6px 22px;color:var(--on-dark-2);font-size:1rem}
+.find-pick.on{border-style:solid;background:rgba(255,255,255,.07);animation:rise .5s var(--ease) both}
+.find-pick b{display:block;color:#fff;font:600 1.3rem/1.2 var(--display)}
+@media (min-width:760px){.places{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.find-row{display:flex;flex-wrap:wrap;align-items:center;gap:12px 22px;margin-top:26px}
+.hotline-num{font:600 clamp(2rem,8vw,2.9rem)/1.1 var(--display);text-decoration:none;white-space:nowrap;background:linear-gradient(100deg,#fff,var(--butter) 60%,var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* ---------- About ---------- */
+.about{position:relative;margin-top:calc(var(--curve)*-1);border-radius:0 var(--curve) 0 0;padding:clamp(70px,10vw,120px) 0 calc(var(--curve) + 60px);background:radial-gradient(80% 100% at 15% 30%,#FBEBC5 0%,rgba(251,235,197,0) 62%),radial-gradient(70% 90% at 100% 100%,#E9EFD6 0%,rgba(233,239,214,0) 62%),var(--cream)}
+.about-grid{display:grid;gap:34px;align-items:center}
+.about-art{position:relative;width:min(92%,470px);aspect-ratio:1/1.18;margin-inline:auto}
+.about-art .sh{position:absolute;inset:0;clip-path:url(#grainR);background:rgba(66,38,10,.26);transform:translate(10px,12px)}
+.about-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;clip-path:url(#grainR)}
+.badge-spin{position:absolute;right:-5%;bottom:-7%;width:50%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(253,251,247,.97) 62%,rgba(253,251,247,0) 72%)}
+.badge-spin img{position:absolute;inset:17%;width:66%;height:66%;border-radius:50%;box-shadow:0 18px 36px -16px rgba(40,20,5,.7);transition:transform .7s var(--spring)}
+.badge-spin:hover img{transform:rotate(-10deg) scale(1.05)}
+.badge-spin svg{position:absolute;inset:0;width:100%;height:100%;animation:spin 46s linear infinite}
+.badge-spin text{font:500 13.5px var(--sans);letter-spacing:.27em;text-transform:uppercase;fill:#6F5610}
+@keyframes spin{to{transform:rotate(360deg)}}
+.about .script{display:block;color:#2E6B3F;margin-top:6px}
+.about p.body{margin-top:14px;color:#3D2A18;font-size:1.1rem;max-width:34em}
+@media (min-width:860px){.about-grid{grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:72px}}
+
+/* Footer */
+.site-foot{position:relative;margin-top:calc(var(--curve)*-1);border-radius:var(--curve) 0 0 0;background:linear-gradient(170deg,#0B2C19,var(--forest-deep) 55%,#1A0F07);color:var(--on-dark-2);padding:56px 0 22px}
+.foot-grid{display:grid;gap:26px}
+.foot-brand img{width:84px;height:84px;border-radius:50%;box-shadow:0 0 0 1.5px var(--gold)}
+.foot-brand .script{display:block;margin-top:10px;color:#CFEEA9}
+.foot-title{font-size:.76rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);margin-bottom:8px}
+.foot-links a{display:inline-block;padding:.22em 0;text-decoration:none;overflow-wrap:anywhere}
+.foot-links a:hover{color:#fff}
+.foot-quip{margin-top:30px;text-align:center;color:#CFEEA9;font-size:1.5rem}
+.copyright{margin-top:14px;padding-top:16px;border-top:1px solid rgba(244,241,230,.13);text-align:center;font-size:.86rem}
+.watermark{margin-top:12px;text-align:center;font-size:11px;line-height:1.55;color:#fff;opacity:.5;overflow-wrap:anywhere}
+@media (min-width:760px){.foot-grid{grid-template-columns:1.3fr 1fr 1.2fr}}
+.has-pill .site-foot{padding-bottom:88px}
+
+/* ---------- The menu view a grain opens into ---------- */
+.shelf{position:fixed;inset:0;z-index:35;overflow-y:auto;overscroll-behavior:contain;background:var(--tint,var(--cream));padding-top:var(--head-h);clip-path:circle(150vmax at var(--ox,50%) var(--oy,50%));transition:clip-path .75s cubic-bezier(.65,.02,.2,1)}
+.shelf.closed{clip-path:circle(0 at var(--ox,50%) var(--oy,50%))}
+/* Once open, drop the circle: it's anchored to the click, so a resized window could outgrow it. */
+.shelf.settled{clip-path:none;transition:none}
+.shelf[data-mood=all]{--m1:#0B2C19;--m2:#8A5A1C;--m3:#E6B800;--tint:#FBF6E6}
+.shelf[data-mood=breads]{--m1:#6E3A0E;--m2:#BC7A22;--m3:#F3D98B;--tint:#FBF3E0}
+.shelf[data-mood=pastries]{--m1:#6B2A12;--m2:#B94E28;--m3:#F2C14E;--tint:#FBF0E2}
+.shelf[data-mood=sweets]{--m1:#1E0E07;--m2:#56291A;--m3:#C98D57;--tint:#F7EEE5}
+.shelf[data-mood=cakes]{--m1:#4A1F2E;--m2:#9A4A4A;--m3:#F4C9A8;--tint:#FCF1EB}
+.shelf[data-mood=crowd]{--m1:#0B2C19;--m2:#3E6B2F;--m3:#D4AF37;--tint:#F5F4E5}
+.shelf-head{position:relative;color:#fff;padding:18px 0 34px;background:radial-gradient(85% 150% at 92% -20%,var(--m3) -25%,transparent 60%),linear-gradient(115deg,var(--m1) 20%,var(--m2))}
+.back{display:inline-flex;align-items:center;gap:.4em;min-height:44px;font-weight:500;color:var(--on-dark);text-decoration:none}
+.back:hover{color:#fff}
+.back svg{transition:transform .25s var(--ease)}
+.back:hover svg{transform:translateX(-4px)}
+.shelf-script{margin-top:10px;color:var(--butter);min-height:1.15em}
+#shelfTitle:focus{outline:0}
+.shelf-head h2{font:600 clamp(2.6rem,10vw,5rem)/1.02 var(--display);letter-spacing:-.02em;margin-top:2px}
+.shelf-line{margin-top:10px;max-width:32em;font-size:clamp(1.08rem,2.8vw,1.3rem);color:rgba(255,255,255,.92)}
+.switch{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.switch a{display:inline-flex;align-items:center;min-height:44px;padding:.2em 1.05em;font-weight:500;font-size:.92rem;text-decoration:none;color:#fff;border:1px solid rgba(255,255,255,.34);border-radius:4px 18px 4px 18px;background:rgba(255,255,255,.08);transition:background-color .2s,color .2s,transform .25s var(--spring)}
+.switch a:hover{background:rgba(255,255,255,.2);transform:translateY(-2px)}
+.switch a[aria-current=page]{background:linear-gradient(115deg,#E9C650,#FFF0B0 50%,#E2BC42);color:#2A1608;border-color:transparent}
+.drip{position:absolute;left:0;right:0;top:100%;width:100%;height:clamp(40px,7vw,84px);margin-top:-1px;fill:#3A1C10;transform-origin:50% 0;animation:melt 1.9s var(--ease) .35s both;pointer-events:none}
+@keyframes melt{from{transform:scaleY(.08)}to{transform:scaleY(1)}}
+.shelf-body{padding-block:34px 70px}
+.shelf[data-mood=sweets] .shelf-body{padding-top:clamp(70px,10vw,110px)}
+
+/* Product grid: cards keep a grain's corners, tip at top right. */
+.grid{display:grid;gap:20px;grid-template-columns:minmax(0,1fr)}
+.card-wrap{display:flex;perspective:1000px;animation:rise .6s var(--ease) both;animation-delay:var(--d,0ms)}
+.card{position:relative;display:flex;flex-direction:column;width:100%;border:1px solid transparent;border-radius:6px 46px 6px 46px;overflow:hidden;background:linear-gradient(170deg,#FFFEFA,#FFF9EC) padding-box,linear-gradient(135deg,rgba(212,175,55,.7),rgba(58,32,19,.08) 42%,rgba(201,132,40,.55)) border-box;box-shadow:0 14px 26px -22px rgba(58,32,19,.7);transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(var(--lift,0));transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.card:hover,.card:focus-within{--lift:-6px;box-shadow:0 26px 40px -24px rgba(58,32,19,.8)}
+.card-media{position:relative;aspect-ratio:3/2;overflow:hidden;background:repeating-linear-gradient(118deg,rgba(255,255,255,.05) 0 2px,transparent 2px 9px),linear-gradient(145deg,var(--m2,#6A3A20),var(--m1,#2A140A))}
+.card-media img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}
+.ph{position:absolute;inset:0;display:grid;place-items:center;background:radial-gradient(70% 90% at 50% 40%,rgba(255,232,170,.2),transparent 70%)}
+.ph-sprig{position:relative;height:62%;aspect-ratio:1/1.05;transition:transform .7s var(--spring)}
+.card:hover .ph-sprig{transform:scale(1.07) rotate(-3deg)}
+.ph-sprig i{position:absolute;left:50%;bottom:0;height:100%;aspect-ratio:1/2.6;translate:-50% 0;transform-origin:50% 100%;clip-path:url(#grain);background:linear-gradient(98deg,#FBE9B4,#E4B553 34%,#B57F26 66%,#7C4C13)}
+.ph-sprig i:nth-child(1){transform:rotate(-34deg) scale(.9)}
+.ph-sprig i:nth-child(2){transform:rotate(34deg) scale(.9)}
+.ph-note{position:absolute;left:14px;bottom:12px;font-size:.78rem;letter-spacing:.03em;color:rgba(255,248,230,.82)}
+.price-tag{position:absolute;top:12px;left:12px;padding:.26em .8em;border-radius:4px 14px 4px 14px;background:linear-gradient(115deg,var(--forest),var(--moss));color:#fff;font-weight:600;font-size:.92rem;border:1px solid var(--gold);transition:opacity .3s,transform .3s var(--ease)}
+.quick{position:absolute;right:12px;bottom:12px;min-height:44px;padding:.45em 1em;font-size:.88rem;transition:opacity .3s,transform .3s var(--ease),background-color .25s,box-shadow .25s}
+.quick.btn-glass{background:rgba(25,12,3,.62)}
+.quick.btn-glass:hover{background:rgba(25,12,3,.84)}
+@media (hover:hover) and (pointer:fine){
+  .price-tag{opacity:0;transform:translateY(-8px)}
+  .quick{opacity:0;transform:translateY(8px)}
+  .card:hover .price-tag,.card:focus-within .price-tag,.card:hover .quick,.card:focus-within .quick{opacity:1;transform:none}
+}
+.card-body{display:flex;flex-direction:column;flex:1;gap:8px;padding:18px}
+.card h3{font:600 1.22rem/1.25 var(--sans);color:var(--forest)}
+.card p{color:var(--muted);font-size:.98rem}
+.card-foot{margin-top:auto;padding-top:10px}
+.sold{font-weight:600;color:var(--muted)}
+.enq{min-height:340px;background:repeating-linear-gradient(118deg,rgba(255,255,255,.05) 0 2px,transparent 2px 9px),linear-gradient(145deg,var(--m2,#6A3A20),var(--m1,#2A140A));border:0;color:var(--on-dark)}
+.enq .ph{inset:18px 26px auto auto;width:118px;height:112px;display:block;background:none}
+.enq .ph-sprig{display:block;width:100%;height:100%}
+.enq{min-height:300px}
+.enq-inner{padding-top:120px}
+.enq>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease)}
+.enq:hover>img{transform:scale(1.05)}
+.enq:has(>img)::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(25,12,3,.1),rgba(25,12,3,.45) 40%,rgba(25,12,3,.82))}
+.enq.draft{outline:2px dashed var(--gold);outline-offset:-7px}
+.enq-inner{position:relative;z-index:2;display:flex;flex-direction:column;gap:8px;margin-top:auto;padding:24px}
+.enq-tag{align-self:flex-start;padding:.1em .7em;border:1px dashed var(--gold);border-radius:999px;font-size:.72rem;letter-spacing:.06em;color:var(--butter)}
+.enq h3{color:#fff;font-size:1.34rem}
+.enq p{color:rgba(247,241,225,.92);max-width:34em}
+.enq .btn{align-self:flex-start;margin-top:8px}
+.price-note{margin-top:22px;font-size:.88rem;color:var(--muted)}
+@media (min-width:620px){
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .grid .span2{grid-column:span 2}
+}
+@media (min-width:980px){.grid:not(.g2){grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* Flour */
+#flour{position:fixed;inset:0;z-index:36;width:100%;height:100%;pointer-events:none}
+
+/* Toast + floating cart pill */
+.toast{position:fixed;left:50%;top:calc(var(--head-h) + 12px);z-index:50;transform:translate(-50%,-14px);max-width:calc(100vw - 32px);padding:.65em 1.1em;border-radius:6px 20px 6px 20px;background:linear-gradient(115deg,var(--forest),var(--moss));color:#fff;border:1px solid var(--gold);font-size:.94rem;font-weight:500;width:max-content;text-align:center;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s var(--ease)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.cart-pill{position:fixed;right:16px;left:16px;bottom:max(14px,env(safe-area-inset-bottom));z-index:38;justify-content:space-between;box-shadow:0 18px 34px -14px rgba(0,0,0,.6)}
+@media (min-width:1000px){.cart-pill{display:none!important}.has-pill .site-foot{padding-bottom:22px}}
+
+/* Cart drawer */
+.drawer{position:fixed;inset:0 0 0 auto;width:min(460px,100vw);height:100dvh;max-width:100vw;max-height:100dvh;margin:0;padding:0;border:0;background:transparent;color:var(--ink);overflow:hidden}
+.drawer::backdrop{background:rgba(25,12,3,.6);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);opacity:0;transition:opacity .3s}
+.drawer.open::backdrop{opacity:1}
+.panel{display:flex;flex-direction:column;height:100%;background:linear-gradient(180deg,var(--cream),var(--crumb));transform:translateX(100%);transition:transform .35s var(--ease);box-shadow:-20px 0 50px -20px rgba(0,0,0,.5)}
+.drawer.open .panel{transform:none}
+.drawer-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;background:linear-gradient(110deg,var(--forest-deep),var(--forest-2) 60%,#3E461C);color:#fff;border-bottom:1px solid var(--gold)}
+.drawer-head h2{font:600 1.45rem/1.1 var(--display)}
+.drawer-head .script{display:block;font-size:1.3rem;color:#CFEEA9}
+.icon-btn{display:grid;place-items:center;width:44px;height:44px;border-radius:12px;flex:none}
+.drawer-head .icon-btn:hover{background:rgba(255,255,255,.14)}
+.drawer-body{flex:1;overflow-y:auto;overscroll-behavior:contain;padding:16px}
+.line{display:grid;grid-template-columns:68px minmax(0,1fr) auto;gap:4px 12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.line img,.line .noimg{grid-row:span 2;width:68px;height:68px;object-fit:cover;border-radius:4px 22px 4px 22px;background:linear-gradient(145deg,#6A3A20,#2A140A)}
+.line-name{font-weight:600;line-height:1.25;color:var(--forest)}
+.line-unit{font-size:.84rem;color:var(--muted)}
+.line-total{font-weight:600;white-space:nowrap;text-align:right}
+.line-ctrl{grid-column:2/4;display:flex;align-items:center;justify-content:space-between;margin-top:4px}
+.stepper{display:inline-flex;align-items:center;border:1px solid rgba(58,32,19,.24);border-radius:999px;background:#fff}
+.stepper button{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;color:var(--forest)}
+.stepper button:hover:not([disabled]){background:var(--crumb)}
+.stepper button[disabled]{opacity:.35;cursor:not-allowed}
+.stepper output{min-width:26px;text-align:center;font-weight:600}
+.remove{min-height:44px;padding:0 .4em;color:var(--muted);font-size:.86rem;text-decoration:underline;text-underline-offset:3px}
+.remove:hover{color:#9B2C1F}
+.empty{text-align:center;padding:36px 12px}
+.empty .ico{width:44px;height:44px;margin:0 auto 10px;color:var(--gold)}
+.empty h3{font:600 1.3rem/1.2 var(--display);color:var(--forest)}
+.empty p{margin:6px 0 16px;color:var(--muted)}
+.draft-note{margin-top:16px;padding:12px 14px;font-size:.84rem;line-height:1.45;color:var(--forest);background:rgba(212,175,55,.13);border:1.5px dashed var(--gold);border-radius:14px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.field{display:block;margin-top:12px}
+.field>span,.legend{display:block;margin-bottom:4px;font-size:.86rem;font-weight:600;color:var(--forest)}
+.field input,.field textarea{width:100%;min-height:46px;padding:.6em .8em;background:#fff;border:1px solid rgba(58,32,19,.28);border-radius:12px;font-size:1rem}
+.field textarea{min-height:72px;resize:vertical}
+.checkout h3{margin-top:18px;font:600 1.15rem/1.2 var(--display);color:var(--forest)}
+fieldset{margin:12px 0 0;padding:0;border:0}
+.radio-row{display:flex;gap:8px}
+.radio-row label{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;min-height:46px;border:1px solid rgba(58,32,19,.28);border-radius:12px;background:#fff;font-weight:500;cursor:pointer}
+.radio-row label:has(input:checked){border-color:var(--forest);box-shadow:inset 0 0 0 1px var(--forest)}
+@media (max-height:720px){.panel{overflow-y:auto}.drawer-body{flex:none;overflow:visible}}
+.drawer-foot{padding:14px 16px calc(14px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid var(--line);display:grid;gap:10px}
+.totals{display:flex;align-items:baseline;justify-content:space-between;font-weight:600}
+.totals strong{font:600 1.5rem/1 var(--display);color:var(--forest)}
+.totals small{display:block;font-weight:400;color:var(--muted);font-size:.78rem}
+.drawer-showroom{display:grid;gap:4px;font-size:.86rem;font-weight:600;color:var(--forest)}
+.drawer-showroom select{min-height:44px;padding:0 .7em;background:#fff;border:1px solid rgba(58,32,19,.28);border-radius:12px;font-size:.96rem;font-weight:400;color:var(--ink)}
+.alert{margin-top:14px;padding:12px 14px;border-radius:12px;background:#FBEDEA;border:1px solid #E2B5AD;color:#7A2418;font-size:.92rem}
+.done{text-align:center;padding:34px 8px}
+.done .ico{width:48px;height:48px;margin:0 auto 10px;color:#2F8A2B}
+.done h3{font:600 1.5rem/1.2 var(--display);color:var(--forest)}
+.done p{margin-top:8px;color:var(--muted)}
+
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;transition-delay:0ms!important}
+  .js .r-right,.js .r-up{opacity:1;transform:none}
+  .stem .spine{stroke-dashoffset:0}
+}
+</style>
+</head>
+<body>
+<script>document.documentElement.classList.add('js')</script>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- A wheat grain: pointed at the tip, full at the base. -->
+    <clipPath id="grain" clipPathUnits="objectBoundingBox"><path d="M.5 0C.84 .2 1.03 .6 .84 .87C.72 1.01 .28 1.01 .16 .87C-.03 .6 .16 .2 .5 0Z"/></clipPath>
+    <!-- Leaning cut-outs for the photos further down the page. -->
+    <clipPath id="grainR" clipPathUnits="objectBoundingBox"><path d="M.05 .985C-.03 .6 .2 .17 .985 .015C1.03 .5 .77 1.04 .05 .985Z"/></clipPath>
+    <clipPath id="grainL" clipPathUnits="objectBoundingBox"><path d="M.95 .985C1.03 .6 .8 .17 .015 .015C-.03 .5 .23 1.04 .95 .985Z"/></clipPath>
+    <linearGradient id="awnGrad" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#8A6612"/><stop offset=".65" stop-color="#A67F18" stop-opacity=".75"/><stop offset="1" stop-color="#C9A227" stop-opacity="0"/></linearGradient>
+    <linearGradient id="stemGrad" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#3E6B2F"/><stop offset=".45" stop-color="#8A7A1C"/><stop offset="1" stop-color="#8A6612"/></linearGradient>
+    <linearGradient id="bladeGrad" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#0F3822"/><stop offset=".6" stop-color="#3E6B2F"/><stop offset="1" stop-color="#8FB84A"/></linearGradient>
+  </defs>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21.500s7-6.300 7-11.700a7 7 0 1 0-14 0c0 5.400 7 11.700 7 11.700Z"/><circle cx="12" cy="9.800" r="2.500"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M21 16.600v2.900a2 2 0 0 1-2.200 2A19 19 0 0 1 2.500 5.200 2 2 0 0 1 4.500 3h2.900a1.500 1.500 0 0 1 1.500 1.300c.1.900.3 1.800.6 2.600a1.500 1.500 0 0 1-.3 1.600L8 9.700a15 15 0 0 0 6.300 6.300l1.200-1.200a1.500 1.500 0 0 1 1.600-.3c.8.300 1.700.5 2.600.6a1.500 1.500 0 0 1 1.300 1.500Z"/></symbol>
+  <symbol id="i-cart" viewBox="0 0 24 24"><path d="M6 8h12l1.200 12.500H4.800L6 8Z"/><path d="M9 11V6.500a3 3 0 0 1 6 0V11"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.500"/><path d="m8 12.200 2.700 2.700L16 9.500"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.149 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></symbol>
+</svg>
+
+<header class="site-head" id="siteHead">
+  <div class="wrap">
+    <div class="head-row">
+      <a class="brand" id="headBrand" href="#home" aria-label="Ear &amp; Ember Bakehouse home">
+        <img src="assets/web/emblem.webp" width="360" height="360" alt="Ear &amp; Ember Bakehouse logo">
+      </a>
+      <nav class="nav" aria-label="Main">
+        <a href="#home">Home</a>
+        <a href="#/menu/all">Our Menu</a>
+        <a href="#showrooms">Showrooms</a>
+        <a href="#about">About Us</a>
+      </nav>
+      <div class="head-actions">
+        <button class="btn btn-gold order-btn" type="button" data-open-cart>
+          <span>Order<span class="lbl-long"> Online</span></span>
+          <span class="count js-count" aria-label="Items in your order">0</span>
+        </button>
+        <button class="burger" type="button" id="burger" aria-expanded="false" aria-controls="mobileNav" aria-label="Open menu">
+          <svg class="ico" aria-hidden="true"><use href="#i-menu"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="mobile-nav" id="mobileNav" hidden>
+      <nav aria-label="Mobile">
+        <a href="#home">Home</a>
+        <a href="#/menu/all">Our Menu</a>
+        <a href="#showrooms">Showrooms</a>
+        <a href="#about">About Us</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main id="page">
+  <section class="hero" id="home">
+    <div class="wrap hero-grid">
+      <div class="hero-words">
+        <div class="identity rise" id="identity">
+          <img src="assets/web/emblem.webp" width="360" height="360" alt="Ear &amp; Ember Bakehouse logo" fetchpriority="high">
+          <div>
+            <span class="script">Warm from the oven</span>
+            <small>Since 2016</small>
+          </div>
+        </div>
+        <h1 class="rise" style="--d:90ms">Ear &amp; Ember</h1>
+        <p class="tagline rise" style="--d:190ms">Good bread, <em>shared</em></p>
+        <p class="what rise" style="--d:280ms">Fresh breads, pastries, cakes and short eats, baked daily before the town wakes up.</p>
+        <div class="story rise" id="story" style="--d:360ms" aria-live="off"></div>
+        <div class="hero-cta lg-only rise" style="--d:440ms">
+          <a class="btn btn-gold pulse" href="#/menu/all">Explore Fresh Menu</a>
+          <button class="btn btn-glass" type="button" data-open-cart>
+            <svg class="ico solid" aria-hidden="true"><use href="#i-wa"/></svg>Order Online (WhatsApp)
+          </button>
+        </div>
+        <p class="script hello lg-only rise" id="hello" style="--d:520ms"></p>
+      </div>
+
+      <div class="ear-col" id="menu">
+        <div class="finger-peek" id="fingerPeek" aria-hidden="true"><div class="peek-cut"><img alt="" width="400" height="1040"><img alt="" width="400" height="1040"></div></div>
+        <div class="stage" id="stage">
+          <div class="lean">
+          <div class="touch-zone" id="touchZone" aria-hidden="true"></div>
+          <div class="ear" id="ear">
+            <svg class="stem" viewBox="0 0 100 130" preserveAspectRatio="none" aria-hidden="true">
+              <path class="blade" d="M49.2 124C55 108 70 92 92 74C72 84 54 100 49.2 124Z"/>
+              <path class="spine" pathLength="1" d="M50 130C46 98 56 66 53 37"/>
+            </svg>
+          </div>
+          </div>
+          <p class="script ear-hint" id="earHint">Psst. Some of these grains open.</p>
+        </div>
+      </div>
+
+      <div class="ear-foot">
+        <a class="btn btn-gold pulse" href="#/menu/all">Explore Fresh Menu</a>
+        <button class="btn btn-glass" type="button" data-open-cart>
+          <svg class="ico solid" aria-hidden="true"><use href="#i-wa"/></svg>Order Online (WhatsApp)
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="day" id="day">
+    <div class="day-head">
+      <div class="wrap">
+        <h2 class="r-right">We know where it all ends up</h2>
+      </div>
+    </div>
+    <div style="position:relative">
+      <div class="sunpath" aria-hidden="true" id="sunpath">
+        <svg viewBox="0 0 100 1000" preserveAspectRatio="none">
+          <path class="sun-track" d="M50 0C96 90 96 170 50 250S4 410 50 500 96 660 50 750 4 910 50 1000"/>
+        </svg>
+        <svg class="lit" id="sunTrail" viewBox="0 0 100 1000" preserveAspectRatio="none">
+          <path class="sun-lit" id="sunLit" d="M50 0C96 90 96 170 50 250S4 410 50 500 96 660 50 750 4 910 50 1000"/>
+        </svg>
+        <span class="sun" id="sun"></span>
+      </div>
+
+      <article class="moment m1"><div class="wrap moment-in">
+        <a class="m-pic r-up" href="#/menu/breads" aria-label="The loaf: open this part of the menu"><span class="sh"></span><img src="assets/web/card-loaf.webp" width="800" height="534" loading="lazy" alt="Crusty loaves cooling on wooden bakery shelves"></a>
+        <div class="m-copy">
+          <h3 class="r-right">The loaf</h3>
+          <p class="body r-right">Still warm when it gets home, which is why one end is already missing. Nobody admits to it. Nobody ever does.</p>
+          <a class="m-link r-right" href="#/menu/breads">Take me to the bread</a>
+        </div>
+      </div></article>
+
+      <article class="moment m2"><div class="wrap moment-in">
+        <a class="m-pic r-up" href="#/menu/pastries" aria-label="The short eats: open this part of the menu"><span class="sh"></span><img src="assets/web/assorted-box.webp" width="720" height="720" loading="lazy" alt="A plate of golden pizza pinwheels"></a>
+        <div class="m-copy">
+          <h3 class="r-right">The short eats</h3>
+          <p class="body r-right">The kettle goes on. Someone just happens to have a box. The meeting gets noticeably shorter, and everybody's suddenly in a good mood.</p>
+          <a class="m-link r-right" href="#/menu/pastries">Who's bringing the box?</a>
+        </div>
+      </div></article>
+
+      <article class="moment m3"><div class="wrap moment-in">
+        <a class="m-pic r-up" href="#/menu/cakes" aria-label="The cake: open this part of the menu"><span class="sh"></span><img src="assets/web/moment-candles.webp" width="737" height="868" loading="lazy" alt="A birthday cake with its candles lit"></a>
+        <div class="m-copy">
+          <h3 class="r-right">The cake</h3>
+          <p class="body r-right">There's a candle count nobody's supposed to mention, a song nobody can agree on the key of, and a corner piece that's already been claimed.</p>
+          <a class="m-link r-right" href="#/menu/cakes">Who's it for?</a>
+        </div>
+      </div></article>
+
+      <article class="moment m4"><div class="wrap moment-in">
+        <a class="m-pic r-up" href="#/menu/sweets" aria-label="The one you hid: open this part of the menu"><span class="sh"></span><img src="assets/web/card-dessert.webp" width="765" height="510" loading="lazy" alt="A chocolate dessert with warm sauce beside a cup of tea"></a>
+        <div class="m-copy">
+          <h3 class="r-right">The one you hid</h3>
+          <p class="body r-right">Back of the fridge, behind the curry. Nobody knows it's there. You've had a long day, and this was always the plan.</p>
+          <a class="m-link r-right" href="#/menu/sweets">I'll need another one</a>
+        </div>
+      </div></article>
+    </div>
+  </section>
+
+  <section class="find" id="showrooms">
+    <div class="wrap">
+      <p class="kicker r-right">Showrooms</p>
+      <h2 class="r-right">There's probably one on your way home</h2>
+      <p class="find-sub r-right">Tap your nearest one and we'll show you the way.</p>
+      <div class="places r-up" id="places" role="group" aria-label="Choose your showroom"></div>
+      <div class="find-pick" id="findPick" aria-live="polite"></div>
+      <div class="find-row r-up">
+        <a class="hotline-num js-tel" aria-label="Call our hotline"></a>
+        <a class="btn btn-gold js-tel-btn"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg>Call the hotline</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="wrap about-grid">
+      <div class="about-art r-up">
+        <span class="sh"></span>
+        <img class="about-photo" src="assets/web/about-bags.webp" width="1000" height="1079" loading="lazy" alt="Wooden shelves of fresh loaves and buns in a bakery">
+        <div class="badge-spin">
+          <svg viewBox="0 0 300 300" aria-hidden="true">
+            <defs><path id="ring" d="M150 150m-132 0a132 132 0 1 1 264 0a132 132 0 1 1-264 0"/></defs>
+            <text><textPath href="#ring">Warm from the oven · Since 2016 · Warm from the oven · Since 2016 ·</textPath></text>
+          </svg>
+          <img src="assets/web/emblem.webp" width="360" height="360" loading="lazy" alt="Ear &amp; Ember Bakehouse logo">
+        </div>
+      </div>
+      <div>
+        <p class="kicker r-right">About Us</p>
+        <h2 class="r-right">Baking for the table since 2016</h2>
+        <span class="script r-right">Flour, fire and a little patience.</span>
+        <p class="body r-right">It's a big thing for a bakery to promise, so we keep it simple. When people sit down together, there should be something good on the table. Everything we bake is for that moment, and for the person who remembered to bring it.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot" id="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <img src="assets/web/emblem.webp" width="360" height="360" loading="lazy" alt="Ear &amp; Ember Bakehouse logo">
+        <span class="script">Warm from the oven</span>
+      </div>
+      <div class="foot-links">
+        <p class="foot-title">Explore</p>
+        <a href="#/menu/all">Our Menu</a><br>
+        <a href="#showrooms">Showrooms</a><br>
+        <a href="#about">About Us</a>
+      </div>
+      <div class="foot-links">
+        <p class="foot-title">Talk to us</p>
+        <a class="js-tel"></a><br>
+        <a id="footMail"></a><br>
+        <a id="footInsta" target="_blank" rel="noopener"></a><br>
+        <a id="footTik" target="_blank" rel="noopener"></a>
+      </div>
+    </div>
+    <p class="script foot-quip">Still here? Go put the kettle on.</p>
+    <p class="copyright">Ear &amp; Ember Bakehouse is a fictional business, made for this portfolio sample.</p>
+    <p class="watermark">Site designed &amp; engineered by Thakshila Wijerathne<br>thakshila.d.wijerathne@gmail.com</p>
+  </div>
+</footer>
+
+<!-- The view a grain opens into. Reached at #/menu/<category>. -->
+<section class="shelf closed" id="shelf" hidden aria-labelledby="shelfTitle">
+  <div class="shelf-head">
+    <div class="wrap">
+      <a class="back" href="#menu" id="shelfBack"><svg class="ico" aria-hidden="true"><use href="#i-back"/></svg>Back</a>
+      <p class="script shelf-script" id="shelfScript"></p>
+      <h2 id="shelfTitle" tabindex="-1"></h2>
+      <p class="shelf-line" id="shelfLine"></p>
+      <nav class="switch" id="switch" aria-label="Menu categories"></nav>
+    </div>
+    <svg class="drip" id="drip" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true" hidden>
+      <path d="M0 0H1200V22C1176 22 1168 36 1160 52 1152 68 1132 68 1126 50 1120 32 1104 22 1080 22 1046 22 1038 44 1028 70 1020 90 996 90 990 68 984 44 970 24 930 24 890 24 884 36 876 46 868 58 850 58 844 44 838 30 820 22 780 22 720 22 712 42 702 60 694 76 672 76 666 58 660 38 640 24 590 24 540 24 530 46 520 76 514 92 488 92 482 72 476 46 462 22 420 22 370 22 362 36 354 46 346 58 328 56 322 42 316 28 300 22 260 22 216 22 208 44 198 66 190 84 166 82 160 62 154 40 138 24 100 24 62 24 56 36 48 46 40 56 24 54 18 40 14 30 8 22 0 22Z"/>
+    </svg>
+  </div>
+  <div class="wrap shelf-body">
+    <div class="grid" id="grid"></div>
+    <noscript><p>Our online menu needs JavaScript. To order, call our hotline on <a href="tel:+94700000000">0700 000 000</a>.</p></noscript>
+    <p class="price-note" id="priceNote" hidden>Preview prices shown for demonstration. Final prices are confirmed when you order.</p>
+  </div>
+</section>
+
+<canvas id="flour" aria-hidden="true"></canvas>
+
+<button class="btn btn-gold cart-pill" type="button" id="cartPill" data-open-cart hidden>
+  <span class="js-count-text"></span><span class="js-total-text"></span>
+</button>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<dialog class="drawer" id="drawer" aria-labelledby="drawerTitle">
+  <div class="panel">
+    <div class="drawer-head">
+      <div>
+        <span class="script">Good choice.</span>
+        <h2 id="drawerTitle">Your Order</h2>
+      </div>
+      <button class="icon-btn" type="button" id="drawerClose" aria-label="Close your order">
+        <svg class="ico" aria-hidden="true"><use href="#i-close"/></svg>
+      </button>
+    </div>
+
+    <div class="drawer-body">
+      <div id="cartLines"></div>
+
+      <div class="empty" id="cartEmpty" hidden>
+        <svg class="ico" aria-hidden="true"><use href="#i-cart"/></svg>
+        <h3>Not even a crumb in here</h3>
+        <p>Go pick something, or just message us.</p>
+        <a class="btn btn-forest" href="#/menu/all" id="emptyBrowse">Explore Fresh Menu</a>
+      </div>
+
+      <div class="done" id="orderDone" hidden tabindex="-1">
+        <svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>
+        <h3>Order received</h3>
+        <p id="doneMsg"></p>
+      </div>
+
+      <form class="checkout" id="checkoutForm" novalidate hidden>
+        <h3>Your details</h3>
+        <label class="field"><span>Name</span><input name="name" autocomplete="name" maxlength="80" required></label>
+        <label class="field"><span>Phone</span><input name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="07X XXX XXXX" required></label>
+        <fieldset id="methodField">
+          <legend class="legend">How would you like it?</legend>
+          <div class="radio-row">
+            <label><input type="radio" name="method" value="pickup" checked> Pickup</label>
+            <label><input type="radio" name="method" value="delivery"> Delivery</label>
+          </div>
+        </fieldset>
+        <label class="field" id="addressField" hidden><span>Delivery address</span><textarea name="address" autocomplete="street-address" maxlength="300"></textarea></label>
+        <label class="field"><span>Notes (optional)</span><textarea name="notes" maxlength="300"></textarea></label>
+      </form>
+
+      <div class="alert" id="orderError" role="alert" hidden></div>
+      <div class="draft-note" id="draftNote" hidden></div>
+    </div>
+
+    <div class="drawer-foot" id="drawerFoot">
+      <label class="drawer-showroom" id="drawerShowroom">
+        <span id="drawerShowroomLabel">Which showroom is closest?</span>
+        <select id="drawerSelect"></select>
+      </label>
+      <div class="totals" id="totals">
+        <span>Total<small id="totalNote"></small></span>
+        <strong id="cartTotal" aria-live="polite"></strong>
+      </div>
+      <button class="btn btn-gold btn-block" type="submit" form="checkoutForm" id="placeOrder" hidden>Place Order</button>
+      <a class="btn btn-wa btn-block" id="waCta" target="_blank" rel="noopener">
+        <svg class="ico solid" aria-hidden="true"><use href="#i-wa"/></svg><span id="waLabel"></span>
+      </a>
+    </div>
+  </div>
+</dialog>
+
+<script>
+(function () {
+  'use strict';
+
+  var CONFIG = window.SITE_CONFIG;
+  var BIZ = CONFIG.business;
+  var COM = CONFIG.commerce;
+  var CATS = CONFIG.catalog.categories;
+  var DEMO = !!COM.demo;
+  var API_MODE = !DEMO && COM.mode === 'api' && !!COM.api.baseUrl;
+  if (COM.mode === 'api' && !COM.api.baseUrl) console.warn('commerce.mode is "api" but api.baseUrl is empty; staying on WhatsApp ordering.');
+
+  var $ = function (s, el) { return (el || document).querySelector(s); };
+  var $$ = function (s, el) { return Array.prototype.slice.call((el || document).querySelectorAll(s)); };
+  var REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var FINE = matchMedia('(hover:hover) and (pointer:fine)').matches;
+  var money = function (n) { return 'LKR ' + Math.round(n).toLocaleString('en-US'); };
+
+  /* All dynamic text goes through textContent, so catalog data from a future API can't inject markup. */
+  function h(tag, attrs) {
+    var el = document.createElement(tag);
+    Object.keys(attrs || {}).forEach(function (k) {
+      if (k === 'text') el.textContent = attrs[k];
+      else if (k === 'class') el.className = attrs[k];
+      else if (attrs[k] !== false && attrs[k] != null) el.setAttribute(k, attrs[k]);
+    });
+    for (var i = 2; i < arguments.length; i++) if (arguments[i]) el.appendChild(arguments[i]);
+    return el;
+  }
+  var SVG = 'http://www.w3.org/2000/svg';
+  function svgEl(tag, attrs) {
+    var el = document.createElementNS(SVG, tag);
+    Object.keys(attrs || {}).forEach(function (k) { el.setAttribute(k, attrs[k]); });
+    return el;
+  }
+  function icon(name, solid) {
+    var s = svgEl('svg', { class: 'ico' + (solid ? ' solid' : ''), 'aria-hidden': 'true' });
+    s.appendChild(svgEl('use', { href: '#i-' + name }));
+    return s;
+  }
+
+  var storage = {
+    get: function (k, d) { try { var v = JSON.parse(localStorage.getItem(k)); return v == null ? d : v; } catch (e) { return d; } },
+    set: function (k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} },
+  };
+
+  /* ---------- Commerce adapter: the only place that knows which backend is in use ---------- */
+  function apiFetch(path, options) {
+    var ctrl = new AbortController();
+    var timer = setTimeout(function () { ctrl.abort(); }, COM.api.timeoutMs || 12000);
+    var url = COM.api.baseUrl.replace(/\/$/, '') + path;
+    return fetch(url, Object.assign({ signal: ctrl.signal, headers: { Accept: 'application/json' } }, options))
+      .finally(function () { clearTimeout(timer); });
+  }
+  function cleanProduct(p) {
+    if (!p || typeof p.id !== 'string' || typeof p.name !== 'string') return null;
+    var price = Number(p.price);
+    if (!isFinite(price) || price < 0) return null;
+    var image = typeof p.image === 'string' && /^(https:\/\/|assets\/|\/)/.test(p.image) ? p.image : '';
+    return {
+      id: p.id, name: p.name, price: Math.round(price), image: image,
+      description: typeof p.description === 'string' ? p.description : '',
+      alt: typeof p.alt === 'string' ? p.alt : p.name,
+      categories: Array.isArray(p.categories) ? p.categories : [],
+      available: p.available !== false,
+    };
+  }
+  var localProducts = function () { return CONFIG.catalog.products.map(cleanProduct).filter(Boolean); };
+
+  var commerce = API_MODE ? {
+    loadProducts: function () {
+      return apiFetch('/products').then(function (r) {
+        if (!r.ok) throw new Error('GET /products ' + r.status);
+        return r.json();
+      }).then(function (data) {
+        var list = (data && data.products || []).map(cleanProduct).filter(Boolean);
+        if (!list.length) throw new Error('GET /products returned no usable products');
+        return list;
+      }).catch(function (err) {
+        console.warn('Falling back to the built-in catalog:', err.message);
+        return localProducts();
+      });
+    },
+    placeOrder: function (order, idempotencyKey) {
+      return apiFetch('/orders', {
+        method: 'POST',
+        headers: { Accept: 'application/json', 'Content-Type': 'application/json', 'Idempotency-Key': idempotencyKey },
+        body: JSON.stringify(order),
+      }).then(function (r) {
+        return r.json().catch(function () { return {}; }).then(function (body) {
+          if (r.ok && body.orderId) return body;
+          var err = new Error('POST /orders ' + r.status);
+          if (r.status >= 400 && r.status < 500 && typeof body.message === 'string') err.userMessage = body.message;
+          throw err;
+        });
+      });
+    },
+  } : {
+    loadProducts: function () { return Promise.resolve(localProducts()); },
+  };
+
+  /* ---------- State ---------- */
+  var products = [];
+  var byId = {};
+  var cart = DEMO ? {} : storage.get('vb.cart.v1', {});       // { productId: qty }. Prices are always read from the catalog.
+  var showroom = storage.get('vb.showroom.v1', '');
+  if (CONFIG.showrooms.indexOf(showroom) < 0) showroom = '';
+  var idemKey = null;
+
+  function newKey() {
+    if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+    return 'vb-' + Date.now() + '-' + Math.random().toString(36).slice(2);
+  }
+  function cartLines() {
+    return Object.keys(cart).filter(function (id) { return byId[id]; }).map(function (id) {
+      return { product: byId[id], qty: cart[id], total: byId[id].price * cart[id] };
+    });
+  }
+  var cartCount = function () { return cartLines().reduce(function (s, l) { return s + l.qty; }, 0); };
+  var cartTotal = function () { return cartLines().reduce(function (s, l) { return s + l.total; }, 0); };
+
+  function setQty(id, qty) {
+    qty = Math.max(0, Math.min(99, qty));
+    if (qty === 0) delete cart[id]; else cart[id] = qty;
+    idemKey = null;              // a changed cart is a new order attempt
+    storage.set('vb.cart.v1', cart);
+    renderCart();
+  }
+
+  /* ---------- WhatsApp ---------- */
+  function waUrl(text) { return 'https://wa.me/' + BIZ.whatsapp + '?text=' + encodeURIComponent(text); }
+  function orderMessage() {
+    var lines = cartLines();
+    var head = 'Hi Ear & Ember, I would like to place an order...';
+    if (!lines.length) return head;
+    var out = [head, ''];
+    lines.forEach(function (l) { out.push(l.qty + ' x ' + l.product.name + ' - ' + money(l.total)); });
+    out.push('', (CONFIG.catalog.pricesConfirmed ? 'Total: ' : 'Estimated total: ') + money(cartTotal()));
+    if (showroom) out.push('Showroom: ' + showroom);
+    return out.join('\n');
+  }
+
+  /* ---------- Static bits from config ---------- */
+  $$('.js-tel, .js-tel-btn').forEach(function (a) { a.href = 'tel:' + BIZ.hotlineTel; });
+  $$('.js-tel').forEach(function (a) { a.textContent = BIZ.hotlineDisplay; });
+  $('#footMail').href = 'mailto:' + BIZ.email;
+  $('#footMail').textContent = BIZ.email;
+  [['#footInsta', BIZ.instagram, 'https://www.instagram.com/', 'Instagram: '], ['#footTik', BIZ.tiktok, 'https://www.tiktok.com/@', 'TikTok: ']].forEach(function (x) {
+    var a = $(x[0]);
+    if (!x[1]) { if (a.previousElementSibling && a.previousElementSibling.tagName === 'BR') a.previousElementSibling.remove(); a.remove(); return; }
+    a.href = x[2] + x[1]; a.textContent = x[3] + x[1];
+  });
+  $('#priceNote').hidden = !!CONFIG.catalog.pricesConfirmed;
+  if (!API_MODE && COM.draftNotice) { $('#draftNote').textContent = COM.draftNotice; $('#draftNote').hidden = false; }
+
+  /* A small hello that knows what time it is in Sri Lanka. */
+  (function () {
+    var hour = 12;
+    try { hour = parseInt(new Intl.DateTimeFormat('en-GB', { hour: 'numeric', hourCycle: 'h23', timeZone: 'Asia/Colombo' }).format(new Date()), 10); } catch (e) {}
+    var line = hour < 5 ? 'Up early, or up late? Either way.'
+      : hour < 11 ? 'Morning. Is there bread at home?'
+      : hour < 14 ? 'Lunch can wait. Well, not for long.'
+      : hour < 18 ? 'Nearly tea time. You know what that means.'
+      : hour < 22 ? "Someone at home is hoping you'll stop on the way back."
+      : 'Still thinking about cake? Thought so.';
+    $('#hello').textContent = line;
+  })();
+
+  /* ---------- The wheat ear: looks like an artwork, turns out to be the menu ---------- */
+  var ROWS = 8;
+  var SPINE = [[50, 130], [46, 98], [56, 66], [53, 37]];   // same curve as the stem in the markup, in 100 x 130 units
+  function spineAt(t) {
+    var m = 1 - t, a = m * m * m, b = 3 * m * m * t, c = 3 * m * t * t, d = t * t * t;
+    var dx = 3 * m * m * (SPINE[1][0] - SPINE[0][0]) + 6 * m * t * (SPINE[2][0] - SPINE[1][0]) + 3 * t * t * (SPINE[3][0] - SPINE[2][0]);
+    var dy = 3 * m * m * (SPINE[1][1] - SPINE[0][1]) + 6 * m * t * (SPINE[2][1] - SPINE[1][1]) + 3 * t * t * (SPINE[3][1] - SPINE[2][1]);
+    return {
+      x: a * SPINE[0][0] + b * SPINE[1][0] + c * SPINE[2][0] + d * SPINE[3][0],
+      y: a * SPINE[0][1] + b * SPINE[1][1] + c * SPINE[2][1] + d * SPINE[3][1],
+      deg: Math.atan2(dx, -dy) * 180 / Math.PI,
+    };
+  }
+  var grains = [];
+  var liveGrains = [];
+  var GRAINS = CONFIG.catalog.grains;
+  function buildEar() {
+    var ear = $('#ear');
+    var seats = [];
+    for (var r = 0; r < ROWS; r++) {
+      [-1, 1].forEach(function (side) {
+        var u = (r + (side > 0 ? .5 : 0)) / ROWS;
+        var pt = spineAt(.3 + .68 * u);
+        seats.push({
+          x: pt.x + side * 1.1, y: pt.y, u: u, r: r,
+          a: pt.deg + side * (35 - 17 * u),
+          w: (12.5 + 3.5 * Math.sin(Math.PI * (u * .8 + .1))) * (1 - .2 * u),
+          awn: 66 + 26 * u,
+        });
+      });
+    }
+    var tip = spineAt(1);
+    seats.push({ x: tip.x, y: tip.y, u: 1, r: ROWS, a: tip.deg, w: 10, awn: 68 });
+
+    var TONES = [1, .93, 1.05, .97, 1.08, .9, 1.02];
+    // Live grains alternate sides as they climb, so the sequence walks up the ear.
+    var ORDER = [0, 3, 6, 9, 12, 15, 1, 4, 7, 10, 13, 16, 2, 5, 8, 11, 14];
+    var liveAt = {};
+    GRAINS.slice(0, seats.length).forEach(function (item, n) { liveAt[ORDER[n]] = n; });
+
+    seats.forEach(function (st, i) {
+      var g = h('div', { class: 'g', style:
+        '--x:' + st.x.toFixed(2) + ';--y:' + (st.y / 1.3).toFixed(2) + ';--w:' + st.w.toFixed(2) + ';--a:' + st.a.toFixed(2) +
+        ';--z:' + (50 - st.r * 2) + ';--r:' + st.r + ';--i:' + i + ';--awn:' + st.awn.toFixed(0) + '%;--tone:' + TONES[i % TONES.length] });
+      var awn = svgEl('svg', { class: 'g-awn', viewBox: '0 0 10 100', preserveAspectRatio: 'none', 'aria-hidden': 'true' });
+      var lean = st.a >= 0 ? 7 : -7;
+      awn.appendChild(svgEl('path', { pathLength: 1, d: 'M0 100C0 62 ' + (lean * .2) + ' 30 ' + lean + ' 0' }));
+      var rim = svgEl('svg', { class: 'g-rim', viewBox: '0 0 1 1', preserveAspectRatio: 'none', 'aria-hidden': 'true' });
+      rim.appendChild(svgEl('path', { d: 'M.5 0C.84 .2 1.03 .6 .84 .87C.72 1.01 .28 1.01 .16 .87C-.03 .6 .16 .2 .5 0Z' }));
+      rim.appendChild(svgEl('path', { class: 'crease', d: 'M.5 .1C.46 .4 .46 .66 .5 .95' }));
+      var n = liveAt[i];
+      var face;
+      if (n === undefined) {
+        face = h('span', { class: 'g-face' }, rim);
+      } else {
+        var item = GRAINS[n];
+        face = h('a', { class: 'g-face', href: '#/menu/' + item.category, 'data-grain': item.category, 'aria-label': item.label + ': open this part of the menu' },
+          h('img', { src: item.image, alt: '', width: 400, height: 1040 }), rim);
+        face.dataset.n = String(n);
+        (function (idx, el) {
+          var on = function () { el.classList.add('hot'); setStory(idx, true); showPeek(idx); };
+          var off = function () { el.classList.remove('hot'); setStory(-1, true); showPeek(-1); };
+          // Fingers are handled in bindHand. Focus only counts from a keyboard, so returning
+          // from a menu view doesn't leave a grain stuck open.
+          var notTouch = function (fn) { return function (e) { if (e.pointerType !== 'touch') fn(); }; };
+          face.addEventListener('pointerenter', notTouch(on));
+          face.addEventListener('pointerleave', notTouch(off));
+          face.addEventListener('focus', function () { if (this.matches(':focus-visible')) on(); });
+          face.addEventListener('blur', off);
+        })(n, g);
+        liveGrains[n] = g;
+      }
+      var grow = h('div', { class: 'g-grow' }, h('span', { class: 'g-shadow' }), awn, face);
+      g.appendChild(h('div', { class: 'g-in' }, grow));
+      ear.appendChild(g);
+      grains.push({ el: g, x: st.x, y: st.y, a: st.a, w: st.w, bend: 0 });
+    });
+  }
+
+  /* The photo on the small-screen grain: two stacked images, so it can crossfade. */
+  var peekShown = -1;
+  var peekFront = 0;
+  function showPeek(n) {
+    if (n === peekShown) return;
+    var imgs = $$('#fingerPeek img');
+    imgs[peekFront].classList.remove('on');
+    if (n >= 0) {
+      peekFront = 1 - peekFront;
+      imgs[peekFront].src = GRAINS[n].image;
+      imgs[peekFront].classList.add('on');
+    }
+    peekShown = n;
+  }
+
+  /* Run a hand through it: grains near the pointer lean out of its way, then spring back. */
+  function bindHand() {
+    if (REDUCED) return;
+    var stageEl = $('#stage');
+    var leanEl = $('.lean');
+    var fingerDown = false;
+    var ptr = null;
+    var running = false;
+    function step() {
+      var rect = stageEl.getBoundingClientRect();
+      var unit = rect.width / 100;
+      var reach = rect.width * (fingerDown ? .38 : .3);
+      var strength = fingerDown ? 26 : 16;
+      var leanStyle = getComputedStyle(leanEl);
+      var leanRad = (parseFloat(leanStyle.getPropertyValue('--lean')) || 0) * Math.PI / 180;
+      var shiftPx = (parseFloat(leanStyle.getPropertyValue('--shift')) || 0) * rect.width;
+      var local = null;
+      if (ptr) {
+        var ox = rect.left + rect.width / 2, oy = rect.bottom;
+        var px = ptr.x - ox - shiftPx, py = ptr.y - oy;
+        local = { x: ox + px * Math.cos(leanRad) + py * Math.sin(leanRad), y: oy - px * Math.sin(leanRad) + py * Math.cos(leanRad) };
+      }
+      var moving = false;
+      grains.forEach(function (g) {
+        var target = 0;
+        // The grain under the pointer stays put so it can be caught; only its neighbours part.
+        if (ptr && !g.el.classList.contains('hot')) {
+          // Measure from the grain's middle, not its hinge.
+          var len = g.w * 2.6 * unit / 2;
+          var rad = g.a * Math.PI / 180;
+          var cx = rect.left + g.x * unit + Math.sin(rad) * len;
+          var cy = rect.top + g.y * unit - Math.cos(rad) * len;
+          var dx = cx - local.x, dy = cy - local.y;
+          var d = Math.sqrt(dx * dx + dy * dy);
+          if (d < reach) {
+            var f = 1 - d / reach;
+            target = (dx >= 0 ? 1 : -1) * f * strength * Math.min(1, Math.abs(dx) / 16 + .25);
+          }
+        }
+        g.bend += (target - g.bend) * .14;
+        if (Math.abs(target - g.bend) > .03) moving = true;
+        g.el.style.setProperty('--bend', g.bend.toFixed(2));
+      });
+      if (moving || ptr) requestAnimationFrame(step); else running = false;
+    }
+    var hero = $('#home');
+    var wake = function () { if (!running) { running = true; requestAnimationFrame(step); } };
+    hero.addEventListener('pointermove', function (e) {
+      if (e.pointerType === 'touch') return;
+      ptr = { x: e.clientX, y: e.clientY };
+      wake();
+    });
+    hero.addEventListener('pointerleave', function (e) { if (e.pointerType !== 'touch') ptr = null; });
+
+    // A finger in the marked zone does what the cursor does: part the wheat and show what's under it.
+    var finger = null;
+    var fingerGrain = -1;
+    function fingerAt(x, y) {
+      ptr = { x: x, y: y };
+      wake();
+      var under = document.elementFromPoint(x, y);
+      var a = under && under.closest ? under.closest('a[data-n]') : null;
+      var n = a ? parseInt(a.dataset.n, 10) : -1;
+      if (n === fingerGrain) return;
+      if (fingerGrain >= 0) liveGrains[fingerGrain].classList.remove('hot');
+      if (n >= 0) liveGrains[n].classList.add('hot');
+      showPeek(n);
+      fingerGrain = n;
+      setStory(n, true);
+      userOnEar = true;
+    }
+    // The wheat moves under a resting finger, so a tap belongs to the grain it came down on,
+    // not whatever has drifted there by the time it lifts. Slides and long holds only reveal.
+    var down = null;
+    var handledTap = false;
+    function fingerUp(e) {
+      if (e.pointerId !== finger) return;
+      finger = null;
+      handledTap = true;
+      var tap = e.type === 'pointerup' && down && !down.moved && Date.now() - down.at < 600 ? down : null;
+      setTimeout(function () {
+        if (!tap) return;
+        if (tap.grain) tap.grain.click();
+        else flour.puff(tap.x, tap.y, null, 12);
+      }, 0);
+      down = null;
+      ptr = null;
+      fingerDown = false;
+      lastFinger = Date.now();
+      showPeek(-1);
+      if (fingerGrain >= 0) liveGrains[fingerGrain].classList.remove('hot');
+      fingerGrain = -1;
+      setStory(-1, true);
+    }
+    stageEl.addEventListener('pointerdown', function (e) {
+      if (e.pointerType !== 'touch' || finger !== null) return;
+      if (!e.target.closest('#touchZone, .g-face')) return;
+      finger = e.pointerId;
+      fingerDown = true;
+      var hit = document.elementFromPoint(e.clientX, e.clientY);
+      down = { x: e.clientX, y: e.clientY, at: Date.now(), moved: false, grain: hit && hit.closest ? hit.closest('a[data-n]') : null };
+      // A finger takes over from the ear's own cycle straight away.
+      setStory(-1, true);
+      showPeek(-1);
+      userOnEar = true;
+      fingerAt(e.clientX, e.clientY);
+    });
+    stageEl.addEventListener('pointermove', function (e) {
+      if (e.pointerId !== finger) return;
+      if (down && Math.abs(e.clientX - down.x) + Math.abs(e.clientY - down.y) > 12) down.moved = true;
+      fingerAt(e.clientX, e.clientY);
+    });
+    // The tap is already dealt with above, so stop the browser sending its own click as well.
+    stageEl.addEventListener('touchend', function (e) {
+      if (handledTap) { handledTap = false; e.preventDefault(); }
+    }, { passive: false });
+    stageEl.addEventListener('pointerup', fingerUp);
+    stageEl.addEventListener('pointercancel', fingerUp);
+    stageEl.addEventListener('contextmenu', function (e) { if (finger !== null) e.preventDefault(); });
+    if (matchMedia('(hover:none)').matches) $('#earHint').textContent = 'Psst. Run a finger through it. Some grains open.';
+  }
+
+  /* The words beside the ear change with whichever grain is in play. */
+  var DEFAULT_STORY = 'The loaf someone always brings home. The short eats that vanish before the tea is poured. The cake nobody admits to going back for.';
+  var storyWrap = $('#story');
+  storyWrap.appendChild(h('p', { class: 'on', 'data-story': '-1', text: DEFAULT_STORY }));
+  GRAINS.forEach(function (item, n) {
+    var p = h('p', { 'data-story': String(n), 'aria-hidden': 'true' }, h('b', { text: item.label }));
+    p.appendChild(document.createTextNode(item.story));
+    storyWrap.appendChild(p);
+  });
+  var userOnEar = false;
+  var lastFinger = 0;        // the ear waits a moment after a finger lifts before it carries on by itself
+  // Only the grain in play comes alive. -1 means none.
+  function setStory(n, byUser) {
+    if (byUser) userOnEar = n >= 0;
+    $$('p', storyWrap).forEach(function (p) {
+      var on = p.dataset.story === String(n);
+      p.classList.toggle('on', on);
+      if (on) p.removeAttribute('aria-hidden'); else p.setAttribute('aria-hidden', 'true');
+    });
+    liveGrains.forEach(function (g, i) { g.classList.toggle('bloom', i === n); });
+  }
+  // Left alone, the ear walks through its grains one at a time, in order, from the bottom up.
+  if (!REDUCED) {
+    var storyStep = -1;
+    setInterval(function () {
+      if (userOnEar || document.hidden || !$('#shelf').hidden || Date.now() - lastFinger < 4000) return;
+      storyStep = storyStep + 1 >= GRAINS.length ? -1 : storyStep + 1;
+      setStory(storyStep, false);
+      showPeek(storyStep);
+    }, 4200);
+  }
+
+  /* ---------- Flour: drifts in the hero light, and puffs where you tap ---------- */
+  var flour = (function () {
+    var canvas = $('#flour');
+    if (REDUCED || !canvas.getContext) { canvas.hidden = true; return { puff: function () {}, wake: function () {} }; }
+    var ctx = canvas.getContext('2d');
+    var bursts = [];
+    var motes = [];
+    var running = false;
+    var heroSeen = true;
+    var size = function () { canvas.width = innerWidth; canvas.height = innerHeight; };
+    size();
+    addEventListener('resize', size, { passive: true });
+    var count = innerWidth < 700 ? 14 : 26;
+    for (var i = 0; i < count; i++) motes.push({ x: Math.random(), y: Math.random(), r: .7 + Math.random() * 1.7, v: .012 + Math.random() * .03, a: .22 + Math.random() * .4, p: Math.random() * 6 });
+    function frame(t) {
+      var shelfOpen = !$('#shelf').hidden;
+      var showMotes = heroSeen && !shelfOpen && !document.hidden;
+      if (!bursts.length && !showMotes) { ctx.clearRect(0, 0, canvas.width, canvas.height); running = false; return; }
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (showMotes) {
+        var hr = $('#home').getBoundingClientRect();
+        var hb = Math.min(hr.bottom, canvas.height);
+        motes.forEach(function (m) {
+          m.y -= m.v / 60;
+          if (m.y < 0) m.y = 1;
+          var x = (m.x + Math.sin(t / 3200 + m.p) * .012) * canvas.width;
+          var y = Math.max(hr.top, 0) + m.y * (hb - Math.max(hr.top, 0));
+          ctx.globalAlpha = m.a * (.65 + .35 * Math.sin(t / 900 + m.p));
+          ctx.fillStyle = '#FFF6DE';
+          ctx.beginPath(); ctx.arc(x, y, m.r, 0, 6.3); ctx.fill();
+        });
+      }
+      bursts = bursts.filter(function (b) {
+        b.x += b.vx; b.y += b.vy; b.vy += b.g; b.vx *= .96; b.vy *= .97; b.life -= .018;
+        if (b.life <= 0) return false;
+        ctx.globalAlpha = Math.max(0, b.life) * .85;
+        ctx.fillStyle = b.c;
+        ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, 6.3); ctx.fill();
+        return true;
+      });
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(frame);
+    }
+    function wake() { if (!running) { running = true; requestAnimationFrame(frame); } }
+    new IntersectionObserver(function (e) { heroSeen = e[0].isIntersecting; if (heroSeen) wake(); }).observe($('#home'));
+    document.addEventListener('visibilitychange', function () { if (!document.hidden) wake(); });
+    wake();
+    return {
+      wake: wake,
+      puff: function (x, y, colors, n) {
+        colors = colors || ['#FFFDF4', '#F7EBD0', '#FFFFFF'];
+        n = n || 26;
+        for (var j = 0; j < n; j++) {
+          var ang = Math.random() * 6.3, sp = .6 + Math.random() * 3.2;
+          bursts.push({ x: x, y: y, vx: Math.cos(ang) * sp, vy: Math.sin(ang) * sp - .9, g: .018, r: .9 + Math.random() * 2.4, life: .7 + Math.random() * .5, c: colors[j % colors.length] });
+        }
+        wake();
+      },
+    };
+  })();
+  var PUFFS = {
+    sweets: ['#3A1C10', '#6A3A20', '#C98D57'],
+    cakes: ['#F4C9A8', '#E6B800', '#FFFDF4', '#C4552D', '#76C82B'],
+    pastries: ['#F3D98B', '#E5B04D', '#FFF6DE'],
+    crowd: ['#D4AF37', '#76C82B', '#FFF6DE'],
+  };
+
+  /* ---------- Menu view ("a different tab", reached by hash so back works) ---------- */
+  var shelf = $('#shelf');
+  var ALL = { id: 'all', label: 'Everything', script: 'For the undecided.', line: 'No judgment. Take your time. We would too.' };
+  var catById = function (id) { return id === 'all' ? ALL : CATS.filter(function (c) { return c.id === id; })[0]; };
+  var cameFromPage = false;
+  var lastTrigger = null;
+  var origin = null;
+
+  CATS.concat([ALL]).forEach(function (c) {
+    $('#switch').appendChild(h('a', { href: '#/menu/' + c.id, 'data-switch': c.id, text: c.label }));
+  });
+
+  function addRipple(btn, e) {
+    var rect = btn.getBoundingClientRect();
+    var size = Math.max(rect.width, rect.height) * 2.2;
+    var x = (e.clientX || rect.left + rect.width / 2) - rect.left - size / 2;
+    var y = (e.clientY || rect.top + rect.height / 2) - rect.top - size / 2;
+    var s = h('span', { class: 'ripple', style: 'width:' + size + 'px;height:' + size + 'px;left:' + x + 'px;top:' + y + 'px' });
+    btn.appendChild(s);
+    setTimeout(function () { s.remove(); }, 650);
+  }
+
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest) return;
+    var b = e.target.closest('.btn');
+    if (b && !b.disabled && !REDUCED) addRipple(b, e);
+    var link = e.target.closest('a[href^="#/menu/"]');
+    if (link) {
+      var r = link.getBoundingClientRect();
+      origin = { x: e.clientX || r.left + r.width / 2, y: e.clientY || r.top + r.height / 2 };
+      lastTrigger = link;
+      if (shelf.hidden) cameFromPage = true;
+      var id = link.getAttribute('href').split('/').pop();
+      if (link.dataset.grain) {
+        flour.puff(origin.x, origin.y, PUFFS[id]);
+      }
+      return;
+    }
+    // Tapping the bare wall leaves a little puff of flour. No reason. Just because.
+    if (!REDUCED && e.target.closest('#home') && !e.target.closest('a,button') && shelf.hidden) flour.puff(e.clientX, e.clientY, null, 12);
+  });
+
+  function photoPlaceholder(withNote) {
+    return h('span', { class: 'ph', 'aria-hidden': 'true' },
+      h('span', { class: 'ph-sprig' }, h('i'), h('i'), h('i')),
+      withNote ? h('span', { class: 'ph-note', text: 'Photo coming soon' }) : null);
+  }
+  function productCard(p, i) {
+    var media = h('div', { class: 'card-media' },
+      p.image ? h('img', { src: p.image, alt: p.alt, loading: 'lazy', width: 600, height: 400 }) : photoPlaceholder(true),
+      h('span', { class: 'price-tag', text: money(p.price) }));
+    var body = h('div', { class: 'card-body' },
+      h('h3', { text: p.name }),
+      h('p', { text: p.description }));
+    var foot = h('div', { class: 'card-foot' });
+    if (p.available) {
+      var quick = h('button', { class: 'btn btn-glass quick', type: 'button', 'data-order': '', 'aria-label': 'Quick add ' + p.name },
+        icon('plus'), h('span', { text: 'Quick Add' }));
+      quick.addEventListener('click', function () {
+        var n = (cart[p.id] || 0) + 1;
+        setQty(p.id, n);
+        toast(n === 1 ? 'One for you.' : n === 2 ? 'And one to share. Sure.' : n === 3 ? "Nobody's counting." : 'Okay, now we\'re counting.');
+      });
+      media.appendChild(quick);
+      var add = h('button', { class: 'btn btn-forest btn-block', type: 'button', 'data-order': '', 'aria-label': 'Add ' + p.name + ' to cart' },
+        icon('cart'), h('span', { text: 'Add to Cart' }));
+      add.addEventListener('click', function () {
+        setQty(p.id, (cart[p.id] || 0) + 1);
+        openDrawer();
+      });
+      foot.appendChild(add);
+    } else {
+      foot.appendChild(h('span', { class: 'sold', text: 'Sold out today' }));
+    }
+    body.appendChild(foot);
+    return h('div', { class: 'card-wrap', 'data-id': p.id, style: '--d:' + (250 + i * 80) + 'ms' }, h('article', { class: 'card' }, media, body));
+  }
+  function enquiryCard(q, i, wide) {
+    var inner = h('div', { class: 'enq-inner' },
+      q.tag ? h('span', { class: 'enq-tag', text: q.tag }) : null,
+      h('h3', { text: q.name }),
+      h('p', { text: q.description }),
+      h('a', { class: 'btn btn-glass', href: waUrl(q.message), target: '_blank', rel: 'noopener' }, icon('wa', true), h('span', { text: q.action })));
+    var card = h('article', { class: 'card enq' + (q.tag ? ' draft' : '') },
+      q.image ? h('img', { src: q.image, alt: '', loading: 'lazy' }) : photoPlaceholder(false), inner);
+    return h('div', { class: 'card-wrap' + (wide ? ' span2' : ''), 'data-id': q.id, style: '--d:' + (250 + i * 80) + 'ms' }, card);
+  }
+  function renderShelf(id) {
+    var c = catById(id);
+    shelf.dataset.mood = id;
+    $('#shelfScript').textContent = c.script;
+    $('#shelfTitle').textContent = c.label;
+    $('#shelfLine').textContent = c.line;
+    $('#drip').toggleAttribute('hidden', id !== 'sweets');
+    $$('[data-switch]').forEach(function (a) {
+      if (a.dataset.switch === id) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+    });
+    var inCat = function (x) { return id === 'all' || x.categories.indexOf(id) >= 0; };
+    var ps = products.filter(inCat);
+    var qs = CONFIG.catalog.enquiries.filter(inCat);
+    var total = ps.length + qs.length;
+    var grid = $('#grid');
+    grid.textContent = '';
+    var twoUp = total <= 2 && !(ps.length && qs.length);
+    grid.classList.toggle('g2', twoUp);
+    var gaps = twoUp ? 0 : (3 - total % 3) % 3;     // widen the last enquiries so a row never ends short
+    ps.forEach(function (p, i) { grid.appendChild(productCard(p, i)); });
+    qs.forEach(function (q, i) { grid.appendChild(enquiryCard(q, ps.length + i, total === 1 || i >= qs.length - gaps)); });
+    bindTilt(grid);
+    $('#priceNote').hidden = !!CONFIG.catalog.pricesConfirmed || !ps.length;
+  }
+  function setPageInert(on) {
+    ['#page', '#foot'].forEach(function (s) { if (on) $(s).setAttribute('inert', ''); else $(s).removeAttribute('inert'); });
+  }
+  var shelfTimer, settleTimer;
+  var shelfOrigin = { x: innerWidth / 2, y: innerHeight / 2 };
+  function openShelf(id) {
+    clearTimeout(shelfTimer);
+    var wasOpen = !shelf.hidden && !shelf.classList.contains('closed');
+    renderShelf(id);
+    shelf.scrollTop = 0;
+    if (wasOpen) { $('#shelfTitle').focus({ preventScroll: true }); return; }
+    var o = origin || { x: innerWidth / 2, y: innerHeight / 2 };
+    shelf.style.setProperty('--ox', o.x + 'px');
+    shelf.style.setProperty('--oy', o.y + 'px');
+    shelf.hidden = false;
+    document.documentElement.classList.add('shelf-open');
+    setPageInert(true);
+    $('#mobileNav').hidden = true;
+    $('#burger').setAttribute('aria-expanded', 'false');
+    void shelf.offsetWidth;
+    shelf.classList.remove('closed');
+    shelfOrigin = o;
+    settleTimer = setTimeout(function () { shelf.classList.add('settled'); }, REDUCED ? 0 : 800);
+    $('#shelfTitle').focus({ preventScroll: true });
+  }
+  function closeShelf() {
+    if (shelf.hidden) return;
+    clearTimeout(settleTimer);
+    // Close towards where it opened, kept inside the window in case that has since changed size.
+    shelf.style.setProperty('--ox', Math.min(shelfOrigin.x, innerWidth) + 'px');
+    shelf.style.setProperty('--oy', Math.min(shelfOrigin.y, innerHeight) + 'px');
+    shelf.classList.remove('settled');
+    void shelf.offsetWidth;
+    shelf.classList.add('closed');
+    document.documentElement.classList.remove('shelf-open');
+    setPageInert(false);
+    shelfTimer = setTimeout(function () { shelf.hidden = true; flour.wake(); }, REDUCED ? 0 : 760);
+    if (lastTrigger && document.contains(lastTrigger) && !lastTrigger.closest('#shelf')) lastTrigger.focus({ preventScroll: true });
+    origin = null;
+  }
+  function route() {
+    var m = location.hash.match(/^#\/menu\/([\w-]+)$/);
+    if (m && catById(m[1])) openShelf(m[1]);
+    else closeShelf();
+  }
+  addEventListener('hashchange', route);
+  $('#shelfBack').addEventListener('click', function (e) {
+    e.preventDefault();
+    if (cameFromPage) { cameFromPage = false; history.back(); }
+    else location.hash = '#menu';
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !shelf.hidden && !drawer.open) $('#shelfBack').click();
+  });
+
+  /* ---------- Showrooms ---------- */
+  var drawerSelect = $('#drawerSelect');
+  drawerSelect.appendChild(h('option', { value: '', text: 'Choose showroom' }));
+  CONFIG.showrooms.forEach(function (s) {
+    drawerSelect.appendChild(h('option', { value: s, text: s }));
+    var b = h('button', { class: 'place', type: 'button', 'data-showroom': s, 'aria-pressed': 'false' }, icon('pin'), h('span', { text: s }));
+    b.addEventListener('click', function () { setShowroom(showroom === s ? '' : s); });
+    $('#places').appendChild(b);
+  });
+  drawerSelect.addEventListener('change', function () { setShowroom(drawerSelect.value); });
+  function setShowroom(s) {
+    showroom = s;
+    storage.set('vb.showroom.v1', s);
+    drawerSelect.value = s;
+    drawerSelect.setCustomValidity('');
+    $$('.place').forEach(function (t) { t.setAttribute('aria-pressed', t.dataset.showroom === s ? 'true' : 'false'); });
+    var pick = $('#findPick');
+    pick.textContent = '';
+    pick.classList.toggle('on', !!s);
+    if (s) {
+      var address = (CONFIG.showroomAddresses || {})[s];
+      pick.appendChild(h('div', null, h('b', { text: s }), address ? h('span', { text: address }) : null));
+      pick.appendChild(h('a', { class: 'btn btn-gold', href: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(address || 'Ear & Ember Bakehouse ' + s), target: '_blank', rel: 'noopener' }, icon('pin'), h('span', { text: 'Show me the way' })));
+    } else {
+      pick.textContent = 'Choose a showroom above to get directions.';
+    }
+    updateWa();
+  }
+
+  /* ---------- Cart UI ---------- */
+  function updateWa() {
+    var has = cartLines().length > 0;
+    $('#waCta').href = waUrl(orderMessage());
+    $('#waLabel').textContent = !has ? 'Chat with us on WhatsApp' : API_MODE ? 'Or order via WhatsApp' : 'Direct Order via WhatsApp';
+    $('#waCta').hidden = API_MODE && !COM.fallbackToWhatsApp;
+    if (API_MODE && COM.fallbackToWhatsApp) $('#waCta').className = 'btn btn-block ' + (has ? 'btn-line' : 'btn-wa');
+  }
+  function renderCart() {
+    var lines = cartLines();
+    var active = document.activeElement;
+    var focusKey = active && active.dataset ? active.dataset.focusKey : null;
+    var wrap = $('#cartLines');
+    wrap.textContent = '';
+    lines.forEach(function (l) {
+      var p = l.product;
+      var dec = h('button', { type: 'button', 'data-focus-key': 'dec-' + p.id, 'aria-label': 'One less ' + p.name, disabled: l.qty <= 1 ? 'disabled' : false }, icon('minus'));
+      var inc = h('button', { type: 'button', 'data-focus-key': 'inc-' + p.id, 'aria-label': 'One more ' + p.name, disabled: l.qty >= 99 ? 'disabled' : false }, icon('plus'));
+      dec.addEventListener('click', function () { setQty(p.id, l.qty - 1); });
+      inc.addEventListener('click', function () { setQty(p.id, l.qty + 1); });
+      var rm = h('button', { class: 'remove', type: 'button', text: 'Remove', 'aria-label': 'Remove ' + p.name });
+      rm.addEventListener('click', function () { setQty(p.id, 0); });
+      wrap.appendChild(h('div', { class: 'line' },
+        p.image ? h('img', { src: p.image, alt: '', width: 68, height: 68 }) : h('span', { class: 'noimg' }),
+        h('span', { class: 'line-name', text: p.name }),
+        h('span', { class: 'line-total', text: money(l.total) }),
+        h('span', { class: 'line-unit', text: money(p.price) + ' each' }),
+        h('span'),
+        h('div', { class: 'line-ctrl' }, h('span', { class: 'stepper' }, dec, h('output', { text: String(l.qty), 'aria-label': 'Quantity' }), inc), rm)
+      ));
+    });
+
+    var count = cartCount();
+    var has = lines.length > 0;
+    $$('.js-count').forEach(function (c) {
+      if (c.textContent !== String(count)) { c.classList.remove('bump'); void c.offsetWidth; c.classList.add('bump'); }
+      c.textContent = String(count);
+      c.setAttribute('aria-label', count + ' items in your order');
+    });
+    $('#cartPill').hidden = !has;
+    document.body.classList.toggle('has-pill', has);
+    $('.js-count-text').textContent = 'View order (' + count + ')';
+    $('.js-total-text').textContent = money(cartTotal());
+
+    var done = !$('#orderDone').hidden;
+    $('#cartEmpty').hidden = has || done;
+    $('#cartTotal').textContent = money(cartTotal());
+    $('#totals').hidden = !has;
+    $('#totalNote').textContent = !CONFIG.catalog.pricesConfirmed ? 'Preview prices, confirmed when you order' : API_MODE ? 'Delivery, if any, is confirmed at checkout' : '';
+    $('#drawerShowroom').hidden = !has;
+    $('#drawerFoot').hidden = done;
+    $('#checkoutForm').hidden = !API_MODE || !has;
+    $('#placeOrder').hidden = !API_MODE || !has;
+    if (!has) $('#orderError').hidden = true;
+    updateWa();
+
+    if (focusKey) {
+      var next = wrap.querySelector('[data-focus-key="' + focusKey + '"]');
+      if (next && !next.disabled) next.focus(); else if (drawer.open) $('#drawerClose').focus();
+    } else if (active && active.classList && active.classList.contains('remove')) {
+      $('#drawerClose').focus();
+    }
+  }
+
+  /* ---------- Drawer ---------- */
+  var drawer = $('#drawer');
+  var closeTimer;
+  function openDrawer() {
+    clearTimeout(closeTimer);
+    if (!drawer.open) drawer.showModal();
+    document.documentElement.classList.add('lock');
+    $('#mobileNav').hidden = true;
+    $('#burger').setAttribute('aria-expanded', 'false');
+    requestAnimationFrame(function () { requestAnimationFrame(function () { drawer.classList.add('open'); }); });
+  }
+  function closeDrawer() {
+    drawer.classList.remove('open');
+    document.documentElement.classList.remove('lock');
+    closeTimer = setTimeout(function () {
+      if (drawer.open) drawer.close();
+      if (!$('#orderDone').hidden) { $('#orderDone').hidden = true; renderCart(); }
+    }, REDUCED ? 0 : 340);
+  }
+  $$('[data-open-cart]').forEach(function (b) { b.addEventListener('click', openDrawer); });
+  $('#drawerClose').addEventListener('click', closeDrawer);
+  $('#emptyBrowse').addEventListener('click', closeDrawer);
+  drawer.addEventListener('cancel', function (e) { e.preventDefault(); closeDrawer(); });
+  drawer.addEventListener('click', function (e) { if (e.target === drawer) closeDrawer(); });
+
+  /* ---------- API checkout (only reachable when commerce.mode is "api") ---------- */
+  var form = $('#checkoutForm');
+  if (API_MODE) {
+    $('#drawerShowroomLabel').textContent = 'Pickup showroom';
+    var deliveryOn = COM.delivery && COM.delivery.enabled;
+    $('#methodField').hidden = !deliveryOn;
+    var syncMethod = function () {
+      var delivery = deliveryOn && form.elements.method.value === 'delivery';
+      $('#addressField').hidden = !delivery;
+      form.elements.address.required = delivery;
+      $('#drawerShowroomLabel').textContent = delivery ? 'Nearest showroom (optional)' : 'Pickup showroom';
+    };
+    form.addEventListener('change', syncMethod);
+    syncMethod();
+
+    form.elements.phone.addEventListener('input', function () { form.elements.phone.setCustomValidity(''); });
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var f = form.elements;
+      var phone = f.phone.value.replace(/[\s-]/g, '');
+      f.phone.setCustomValidity(/^(\+94|0)\d{9}$/.test(phone) ? '' : 'Please enter a Sri Lankan phone number, like 0771 234 567.');
+      var method = deliveryOn ? f.method.value : 'pickup';
+      drawerSelect.setCustomValidity(method === 'pickup' && !showroom ? 'Please choose a showroom for pickup.' : '');
+      if (!form.reportValidity() || !drawerSelect.reportValidity()) return;
+
+      var btn = $('#placeOrder');
+      var err = $('#orderError');
+      err.hidden = true;
+      btn.disabled = true;
+      btn.textContent = 'Placing your order...';
+      if (!idemKey) idemKey = newKey();
+
+      commerce.placeOrder({
+        items: cartLines().map(function (l) { return { productId: l.product.id, qty: l.qty }; }),
+        customer: { name: f.name.value.trim(), phone: phone },
+        fulfilment: { method: method, showroom: showroom || null, address: method === 'delivery' ? f.address.value.trim() : null },
+        notes: f.notes.value.trim(),
+        displayedTotal: cartTotal(),
+        currency: 'LKR',
+      }, idemKey).then(function (res) {
+        cart = {};
+        idemKey = null;
+        storage.set('vb.cart.v1', cart);
+        form.reset();
+        syncMethod();
+        if (typeof res.paymentUrl === 'string' && /^https:\/\//.test(res.paymentUrl)) {
+          window.location.assign(res.paymentUrl);
+          return;
+        }
+        $('#doneMsg').textContent = 'Your order number is ' + res.orderId +
+          (typeof res.total === 'number' ? '. Total: ' + money(res.total) : '') + '. We will be in touch to confirm.';
+        $('#orderDone').hidden = false;
+        renderCart();
+        $('#orderDone').focus();
+      }).catch(function (error) {
+        console.error(error);
+        err.textContent = error.userMessage || ("We couldn't place your order just now. Your cart is saved, so please try again" +
+          (COM.fallbackToWhatsApp ? ', or send it to us on WhatsApp below.' : ', or call ' + BIZ.hotlineDisplay + '.'));
+        err.hidden = false;
+        err.scrollIntoView({ block: 'nearest' });
+      }).finally(function () {
+        btn.disabled = false;
+        btn.textContent = 'Place Order';
+      });
+    });
+  }
+
+  /* ---------- Demo mode: everything to do with ordering or contact stops here, with a notice ---------- */
+  if (DEMO) document.addEventListener('click', function (e) {
+    if (!e.target.closest) return;
+    var hit = e.target.closest('[data-open-cart], [data-order], a[href^="https://wa.me/"], a[href^="tel:"]');
+    if (!hit) return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    if (hit.classList.contains('btn') && !REDUCED) addRipple(hit, e);
+    toast(COM.demoMessage);
+  }, true);
+
+  /* ---------- Toast ---------- */
+  document.addEventListener('dragstart', function (e) {
+    if (e.target.closest && e.target.closest('img, a')) e.preventDefault();
+  });
+
+  var toastTimer;
+  function toast(msg) {
+    var t = $('#toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { t.classList.remove('show'); }, 2200);
+  }
+
+  /* ---------- Motion ---------- */
+  var io = 'IntersectionObserver' in window && !REDUCED ? new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+    });
+  }, { threshold: 0.14, rootMargin: '0px 0px -6% 0px' }) : null;
+  $$('.r-right, .r-up').forEach(function (el) { if (io) io.observe(el); else el.classList.add('in'); });
+  // Stagger siblings that sit in the same group.
+  $$('.m-copy, .day-head .wrap, .find .wrap, .about-grid > div:last-child').forEach(function (group) {
+    Array.prototype.forEach.call(group.children, function (el, i) { if (el.classList.contains('r-right')) el.style.setProperty('--d', i * 110 + 'ms'); });
+  });
+
+  function bindTilt(root) {
+    if (REDUCED || !FINE) return;
+    $$('.card', root).forEach(function (card) {
+      card.addEventListener('pointermove', function (e) {
+        var r = card.getBoundingClientRect();
+        card.style.setProperty('--ry', ((e.clientX - r.left) / r.width - .5) * 6 + 'deg');
+        card.style.setProperty('--rx', ((e.clientY - r.top) / r.height - .5) * -6 + 'deg');
+      });
+      card.addEventListener('pointerleave', function () {
+        card.style.removeProperty('--rx');
+        card.style.removeProperty('--ry');
+      });
+    });
+  }
+
+  // The pointer is the light: shadows swing away from it, and the ear leans a little.
+  var hero = $('#home');
+  var stage = $('#stage');
+  if (!REDUCED && FINE) {
+    var lit = false;
+    hero.addEventListener('pointermove', function (e) {
+      if (lit) return;
+      lit = true;
+      requestAnimationFrame(function () {
+        lit = false;
+        var r = hero.getBoundingClientRect();
+        var sr = stage.getBoundingClientRect();
+        var nx = (e.clientX - (sr.left + sr.width / 2)) / Math.max(r.width / 2, 1);
+        var ny = (e.clientY - (sr.top + sr.height / 2)) / Math.max(r.height / 2, 1);
+        hero.style.setProperty('--mx', e.clientX - r.left + 'px');
+        hero.style.setProperty('--my', e.clientY - r.top + 'px');
+        hero.style.setProperty('--glow', '1');
+        stage.style.setProperty('--sx', (-nx * 10).toFixed(1) + 'px');
+        stage.style.setProperty('--sy', (7 - ny * 7).toFixed(1) + 'px');
+      });
+    });
+    hero.addEventListener('pointerleave', function () {
+      hero.style.setProperty('--glow', '0');
+      stage.style.removeProperty('--sx');
+      stage.style.removeProperty('--sy');
+    });
+  }
+
+  // Scroll meter in the header, and the sun that crosses the day.
+  var headEl = $('#siteHead');
+  var dayWrap = $('#sunpath').parentNode;
+  var sunLit = $('#sunLit');
+  var sun = $('#sun');
+  var sunLen = sunLit.getTotalLength();
+  var ticking = false;
+  function onScroll() {
+    ticking = false;
+    var doc = document.documentElement;
+    headEl.style.setProperty('--read', (scrollY / Math.max(doc.scrollHeight - innerHeight, 1)).toFixed(4));
+    var r = dayWrap.getBoundingClientRect();
+    var p = Math.min(1, Math.max(0, (innerHeight * .55 - r.top) / r.height));
+    var pt = sunLit.getPointAtLength(p * sunLen);
+    sun.style.left = pt.x + '%';
+    sun.style.top = pt.y / 10 + '%';
+    $('#sunTrail').style.setProperty('--p', (pt.y / 1000).toFixed(4));
+    sun.classList.toggle('moon', p > .78);
+  }
+  addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+  addEventListener('resize', onScroll, { passive: true });
+
+  /* ---------- Navigation ---------- */
+  var burger = $('#burger');
+  var mobileNav = $('#mobileNav');
+  burger.addEventListener('click', function () {
+    var open = mobileNav.hidden;
+    mobileNav.hidden = !open;
+    burger.setAttribute('aria-expanded', String(open));
+    burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+  $$('a', mobileNav).forEach(function (a) {
+    a.addEventListener('click', function () {
+      mobileNav.hidden = true;
+      burger.setAttribute('aria-expanded', 'false');
+      burger.setAttribute('aria-label', 'Open menu');
+    });
+  });
+  if ('IntersectionObserver' in window) {
+    var navLinks = $$('.nav a');
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        navLinks.forEach(function (a) { a.classList.toggle('active', a.getAttribute('href') === '#' + en.target.id); });
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    ['home', 'showrooms', 'about'].forEach(function (id) { spy.observe(document.getElementById(id)); });
+  }
+
+  /* ---------- Boot ---------- */
+  buildEar();
+  bindHand();
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (e) { $('#headBrand').classList.toggle('tuck', e[0].isIntersecting); }, { rootMargin: '-80px 0px 0px 0px' }).observe($('#identity'));
+  }
+  setShowroom(showroom);
+  onScroll();
+  commerce.loadProducts().then(function (list) {
+    products = list;
+    byId = {};
+    products.forEach(function (p) { byId[p.id] = p; });
+    // Keep only whole, in-range quantities of products that still exist and can be bought.
+    Object.keys(cart).forEach(function (id) {
+      var q = cart[id];
+      if (!byId[id] || !byId[id].available || !Number.isInteger(q) || q < 1) delete cart[id];
+      else if (q > 99) cart[id] = 99;
+    });
+    if (!DEMO) storage.set('vb.cart.v1', cart);
+    renderCart();
+    route();
+  });
+})();
+</script>
+</body>
+</html>
